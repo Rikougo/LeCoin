@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">LeCoin</string>
+    <string name="lieu">Lieu</string>
+    <string name="chercher">Chercher</string>
+    <string name="game_type">Jeu</string>
+    <string name="car_type">Voiture</string>
+    <string name="animal_type">Animal</string>
+    <string name="house_type">Maison</string>
+    <string name="min_price">Min €</string>
+    <string name="max_price">Max €</string>
+    <string name="search_object">Recherche</string>
+
+</resources>
