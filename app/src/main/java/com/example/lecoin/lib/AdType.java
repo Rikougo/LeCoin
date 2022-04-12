@@ -1,24 +1,22 @@
 package com.example.lecoin.lib;
 
-import androidx.annotation.NonNull;
-
 public enum AdType {
-    Game("Jeu"),
-    Car("Voiture"),
-    Animal("Animal"),
-    House("Maison");
+    Game(0),
+    Kitchen(1),
+    Animal(2),
+    Whatever(3);
 
-    public final String label;
+    private int mID;
 
-    AdType(String name) {
-        this.label = name;
+    AdType(int id) { mID = id; }
+
+    public static AdType fromID(int id) {
+        AdType[] values = values();
+        if (id < 0 || id >= values.length)
+            throw new IllegalArgumentException("Unknown ID given !" + id);
+
+        return values[id];
     }
 
-    public String Name() { return this.label; }
-
-    @NonNull
-    @Override
-    public String toString()  {
-        return this.label;
-    }
+    public int getID() { return mID; }
 }
