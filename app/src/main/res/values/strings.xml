@@ -9,5 +9,8 @@
     <string name="min_price">Min €</string>
     <string name="max_price">Max €</string>
     <string name="search_object">Recherche</string>
+    <string name="Connection">Se connecter</string>
+    <string name="Password">Mot de passe</string>
+    <string name="User">Utilisateur</string>
 
 </resources>
