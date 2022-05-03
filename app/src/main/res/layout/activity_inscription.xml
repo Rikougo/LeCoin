@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/ConnectionMessage"
+            android:id="@+id/InscriptionMessage"
             android:layout_width="317dp"
             android:layout_height="38dp"
             android:text="@string/Connection"
