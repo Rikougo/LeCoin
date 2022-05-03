@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/MainContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="317dp"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:text="@string/create_account"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/inputUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/User"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/inputPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/Password"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#855F8F"
+            android:text="@string/sign_up"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+    </LinearLayout>
+
+</FrameLayout>

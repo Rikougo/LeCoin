@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_insetEdge="none">
+    tools:context=".fragment.LoginFragment">
 
-    <FrameLayout
-        android:layout_width="411dp"
-        android:layout_height="154dp"
-        android:background="#855F8F"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </FrameLayout>
-
+    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/MainContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,11 +22,12 @@
             android:id="@+id/textView"
             android:layout_width="317dp"
             android:layout_height="38dp"
+            android:gravity="center"
             android:text="@string/Connection"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/inputUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -45,7 +38,7 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/inputPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -56,7 +49,7 @@
             tools:ignore="TextContrastCheck" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#855F8F"
@@ -65,4 +58,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

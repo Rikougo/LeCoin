@@ -1,52 +1,77 @@
 package com.example.lecoin;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
-import com.example.lecoin.database.LeCoinDatabase;
-import com.example.lecoin.database.User;
-import com.example.lecoin.lib.AdType;
-
-import java.util.List;
+import com.example.lecoin.fragment.LoginFragment;
+import com.example.lecoin.fragment.SearchFragment;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+    private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
 
-        LeCoinDatabase database = Room.databaseBuilder(
-                getApplicationContext(),
-                LeCoinDatabase.class,
-                "Test"
-        ).createFromAsset("databases/lecoin.db").allowMainThreadQueries().build();
+        mAuth = FirebaseAuth.getInstance();
+        mFragmentManager = getSupportFragmentManager();
+    }
 
-        User u0 = User.Create("Samuel", "coolmdp", "sam@oui.non", 0, "MaisonCool");
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-        database.userDao().insertAll(u0);
+        UpdateUI(mAuth.getCurrentUser());
+    }
 
-        List<User> users = database.userDao().getAll();
+    void UpdateUI(FirebaseUser user) {
+        mFragmentManager.beginTransaction()
+                .replace(R.id.mainViewContainer, SearchFragment.class, null)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
 
-        for(User user : users) {
-            System.out.println(user.toString());
-        }
+        // STATUS BAR
+        TabLayout statusBar = (TabLayout) findViewById(R.id.downNav);
 
-        // populate spinner with known categories
-        Spinner categorySelector = (Spinner)findViewById(R.id.CategorySelector);
+        statusBar.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                System.out.println(tab.getText());
+                if (tab.getText().toString().equals("Profile")) {
+                    mFragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out)
+                            .replace(R.id.mainViewContainer, LoginFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    mFragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out)
+                            .replace(R.id.mainViewContainer, SearchFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
 
-        AdType[] types = AdType.values();
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-        ArrayAdapter<AdType> adapter = new ArrayAdapter<>(
-                this,
-                com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
-                types
-        );
+            }
 
-        categorySelector.setAdapter(adapter);
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }
