@@ -9,11 +9,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
 
 public class LoginFragment extends Fragment {
+    private HomeActivity mParent;
+
     private static final String ARG_MAIL = "Mail";
     private static final String ARG_PWD = "Password";
 
@@ -40,6 +44,8 @@ public class LoginFragment extends Fragment {
             mMail = getArguments().getString(ARG_MAIL);
             mPwd = getArguments().getString(ARG_PWD);
         }
+
+        mParent = (HomeActivity) getActivity();
     }
 
     @Override
@@ -51,8 +57,26 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)  {
-        System.out.println(mMail);
         ((EditText)getView().findViewById(R.id.inputUsername)).setText(mMail);
         ((EditText)getView().findViewById(R.id.inputPassword)).setText(mPwd);
+
+        Button login = getView().findViewById(R.id.loginButton);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mParent.LoginUser(
+                        ((EditText)getView().findViewById(R.id.inputUsername)).getText().toString(),
+                        ((EditText)getView().findViewById(R.id.inputPassword)).getText().toString()
+                );
+            }
+        });
+
+        ((Button)getView().findViewById(R.id.goToRegister)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mParent.SwitchTo(RegisterFragment.class);
+            }
+        });
     }
 }

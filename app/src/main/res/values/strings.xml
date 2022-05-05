@@ -29,5 +29,8 @@
     <string name="profilePageName">Profile</string>
     <string name="sign_up">S\'inscrire</string>
     <string name="create_account">Créer un compte</string>
+    <string name="mail">Mail</string>
+    <string name="j_ai_d_j_un_compte">J\'ai déjà un compte</string>
+    <string name="no_account">Je n\'ai pas de compte</string>
 
 </resources>

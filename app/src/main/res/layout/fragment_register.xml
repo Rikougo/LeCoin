@@ -32,6 +32,17 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
+            android:id="@+id/inputMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/mail"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
             android:id="@+id/inputPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,12 +54,18 @@
             tools:ignore="TextContrastCheck" />
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#855F8F"
             android:text="@string/sign_up"
             tools:ignore="DuplicateSpeakableTextCheck" />
+
+        <Button
+            android:id="@+id/goToLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/j_ai_d_j_un_compte" />
 
     </LinearLayout>
 

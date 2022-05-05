@@ -56,6 +56,12 @@
             android:text="@string/Connection"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
+        <Button
+            android:id="@+id/goToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_account" />
+
     </LinearLayout>
 
 </FrameLayout>
