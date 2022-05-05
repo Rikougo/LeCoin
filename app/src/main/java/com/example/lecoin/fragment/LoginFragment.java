@@ -69,6 +69,8 @@ public class LoginFragment extends Fragment {
                         ((EditText)getView().findViewById(R.id.inputUsername)).getText().toString(),
                         ((EditText)getView().findViewById(R.id.inputPassword)).getText().toString()
                 );
+
+                mParent.UpdateUI();
             }
         });
 

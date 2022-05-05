@@ -21,7 +21,7 @@
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/inputUsername"
+            android:id="@+id/inputUsernameR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -32,7 +32,7 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/inputMail"
+            android:id="@+id/inputMailR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -43,7 +43,7 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/inputPassword"
+            android:id="@+id/inputPasswordR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
