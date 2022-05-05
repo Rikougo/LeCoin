@@ -32,5 +32,8 @@
     <string name="mail">Mail</string>
     <string name="j_ai_d_j_un_compte">J\'ai déjà un compte</string>
     <string name="no_account">Je n\'ai pas de compte</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="profile">Profile</string>
 
 </resources>

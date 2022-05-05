@@ -2,25 +2,21 @@ package com.example.lecoin.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RegisterFragment#newInstance} factory method to
+ * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RegisterFragment extends Fragment {
+public class ProfileFragment extends Fragment {
     private HomeActivity mParent;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +27,7 @@ public class RegisterFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public RegisterFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -44,8 +40,8 @@ public class RegisterFragment extends Fragment {
      * @return A new instance of fragment RegisterFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RegisterFragment newInstance(String param1, String param2) {
-        RegisterFragment fragment = new RegisterFragment();
+    public static ProfileFragment newInstance(String param1, String param2) {
+        ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,30 +61,8 @@ public class RegisterFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
-    }
-
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)  {
-        Button register = getView().findViewById(R.id.registerButton);
-
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mParent.SignupUser(
-                        ((EditText)getView().findViewById(R.id.inputUsernameR)).getText().toString(),
-                        ((EditText)getView().findViewById(R.id.inputPasswordR)).getText().toString()
-                );
-            }
-        });
-
-        ((Button)getView().findViewById(R.id.goToLogin)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mParent.SwitchTo(LoginFragment.class);
-            }
-        });
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 }
