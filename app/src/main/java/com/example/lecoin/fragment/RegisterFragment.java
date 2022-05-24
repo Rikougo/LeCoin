@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.lecoin.HomeActivity;
@@ -78,8 +79,11 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mParent.SignupUser(
+                        ((EditText)getView().findViewById(R.id.inputMailR)).getText().toString(),
+                        ((EditText)getView().findViewById(R.id.inputPasswordR)).getText().toString(),
                         ((EditText)getView().findViewById(R.id.inputUsernameR)).getText().toString(),
-                        ((EditText)getView().findViewById(R.id.inputPasswordR)).getText().toString()
+                        ((EditText)getView().findViewById(R.id.inputCityR)).getText().toString(),
+                        ((CheckBox)getView().findViewById(R.id.checkBoxStatusR)).isChecked()
                 );
             }
         });
