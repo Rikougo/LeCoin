@@ -14,6 +14,10 @@ import com.example.lecoin.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.GeoPoint;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +75,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void updateName(String newName){
-        DocumentReference updateUser = mParent.getDataBase().collection("User").document(mParent.getAuth().getUid());
+        DocumentReference updateUser = mParent.getDataBase().collection("User").document(Objects.requireNonNull(mParent.getAuth().getUid()));
 
         updateUser
                 .update("name", newName)
@@ -89,23 +93,52 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-    /*
-    public void updateStatus(int newName){
-        DocumentReference updateUser = mParent.getDataBase().collection("User").document(mParent.getAuth().getUid());
+    public void updateStatus(int status){
+        DocumentReference updateUser = mParent.getDataBase().collection("User").document(Objects.requireNonNull(mParent.getAuth().getUid()));
 
         updateUser
-                .update("name", newName)
+                .update("status", status)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        System.out.println("User name succesfully updated!");
+                        System.out.println("User status succesfully updated!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        System.err.println("Error updating user name");
+                        System.err.println("Error updating user status");
                     }
                 });
-    }*/
+    }
+
+    public void updateBookmarks(int bookmark, boolean addRemove) {
+        DocumentReference updateUser = mParent.getDataBase().collection("User").document(Objects.requireNonNull(mParent.getAuth().getUid()));
+
+        if(addRemove){
+            updateUser.update("bookmarks", FieldValue.arrayUnion("bookmark"));
+        }
+        else{
+            updateUser.update("bookmarks", FieldValue.arrayRemove("bookmark"));
+        }
+    }
+
+    public void updateLocalisation(GeoPoint localisation){
+        DocumentReference updateUser = mParent.getDataBase().collection("User").document(Objects.requireNonNull(mParent.getAuth().getUid()));
+
+        updateUser
+                .update("localisation",  localisation)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        System.out.println("User localisation succesfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.err.println("Error updating user localisation");
+                    }
+                });
+    }
 }

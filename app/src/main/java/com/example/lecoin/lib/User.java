@@ -1,19 +1,19 @@
 package com.example.lecoin.lib;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class User {
     public String name;
     public int status;
-    public double lat;
-    public double lng;
+    public GeoPoint localisation;
     public int[] bookmarks;
 
     public User(){}
 
-    public User(String name, int status, double lat, double lng, int[] bookmarks){
+    public User(String name, int status, GeoPoint localisation, int[] bookmarks){
         this.name = name;
         this.status = status;
-        this.lat = lat;
-        this.lng = lng;
+        this.localisation = localisation;
         this.bookmarks = bookmarks;
     }
 
@@ -25,12 +25,8 @@ public class User {
         return status;
     }
 
-    public double getLat() {
-        return lat;
-    }
-
-    public double getLng() {
-        return lng;
+    public GeoPoint getLocalisation() {
+        return localisation;
     }
 
     public int[] getBookmarks() {
