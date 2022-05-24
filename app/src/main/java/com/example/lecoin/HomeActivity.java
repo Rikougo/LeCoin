@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
 
+import com.example.lecoin.fragment.ListFragment;
 import com.example.lecoin.fragment.LoginFragment;
 import com.example.lecoin.fragment.ProfileFragment;
 import com.example.lecoin.fragment.SearchFragment;
@@ -30,6 +32,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (getActionBar() != null) getActionBar().hide();
 
         setContentView(R.layout.activity_home);
 
@@ -59,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.addPage:
                         System.out.println("Add");
+                        SwitchTo(ListFragment.class);
                         break;
                     case R.id.accountPage:
                         System.out.println("Account");
