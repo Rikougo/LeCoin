@@ -53,6 +53,24 @@
             android:minHeight="48dp"
             tools:ignore="TextContrastCheck" />
 
+        <EditText
+            android:id="@+id/inputCityR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/City"
+            android:inputType="textAutoComplete"
+            android:minHeight="48dp"
+            tools:ignore="TextContrastCheck" />
+
+        <CheckBox
+            android:id="@+id/checkBoxStatusR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/Professional" />
+
         <Button
             android:id="@+id/registerButton"
             android:layout_width="wrap_content"

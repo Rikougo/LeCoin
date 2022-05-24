@@ -12,12 +12,17 @@ import com.example.lecoin.fragment.LoginFragment;
 import com.example.lecoin.fragment.ProfileFragment;
 import com.example.lecoin.fragment.SearchFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -117,7 +122,7 @@ public class HomeActivity extends AppCompatActivity {
         UpdateUI();
     }
 
-    public void SignupUser(String mail, String password) {
+    public void SignupUser(String mail, String password, String name, String place, boolean status) {
         if (mAuth.getCurrentUser() != null) {
             System.err.println("User already connected");
             return;
@@ -130,6 +135,28 @@ public class HomeActivity extends AppCompatActivity {
                     // récupérer l'uid de l'utilisateur créé : mAuth.getCurrentUser().getUid();
                     // posé les informations supplémentaires dans un nouveau docuent dans
                     // la collection user
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("mail", mail);
+                    user.put("name", name);
+                    user.put("place", place);
+                    user.put("Status", status);
+
+
+                    mDB.collection("User").document(mAuth.getCurrentUser().getUid())
+                            .set(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    System.out.println("DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    System.err.println("Error writing document");
+                                }
+                            });
+
                     System.out.println("Registered and logged as : " + mail);
                 } else {
                     System.err.println("Error registering : " + task.getException().getMessage());
