@@ -2,6 +2,7 @@ package com.example.lecoin.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +11,9 @@ import android.view.ViewGroup;
 
 import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,4 +69,43 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
+
+    public void updateName(String newName){
+        DocumentReference updateUser = mParent.getDataBase().collection("User").document(mParent.getAuth().getUid());
+
+        updateUser
+                .update("name", newName)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        System.out.println("User name succesfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.err.println("Error updating user name");
+                    }
+                });
+    }
+
+    /*
+    public void updateStatus(int newName){
+        DocumentReference updateUser = mParent.getDataBase().collection("User").document(mParent.getAuth().getUid());
+
+        updateUser
+                .update("name", newName)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        System.out.println("User name succesfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.err.println("Error updating user name");
+                    }
+                });
+    }*/
 }

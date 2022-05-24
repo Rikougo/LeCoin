@@ -20,10 +20,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -158,5 +158,21 @@ public class HomeActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public FirebaseAuth getAuth() {
+        return mAuth;
+    }
+
+    public FirebaseFirestore getDataBase() {
+        return mDB;
+    }
+
+    public Task<DocumentSnapshot> getOffer(String ID){
+        return mDB.collection("Offer").document(ID).get();
+    }
+
+    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOffer(){
+        return mDB.collection("Offer").get();
     }
 }
