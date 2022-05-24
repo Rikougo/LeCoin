@@ -153,7 +153,6 @@ public class HomeActivity extends AppCompatActivity {
                     // posé les informations supplémentaires dans un nouveau docuent dans
                     // la collection user
                     Map<String, Object> user = new HashMap<>();
-                    user.put("mail", mail);
                     user.put("name", name);
                     user.put("place", place);
                     user.put("Status", status);

@@ -73,10 +73,10 @@ public class LoginFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mParent.LoginUser(
-                        ((EditText)getView().findViewById(R.id.inputUsername)).getText().toString(),
-                        ((EditText)getView().findViewById(R.id.inputPassword)).getText().toString()
-                );
+                String username = ((EditText)getView().findViewById(R.id.inputUsername)).getText().toString();
+                String password = ((EditText)getView().findViewById(R.id.inputPassword)).getText().toString();
+                if(!username.equals("") && !password.equals(""))
+                mParent.LoginUser(username, password);
             }
         });
 

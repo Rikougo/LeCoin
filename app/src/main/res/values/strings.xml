@@ -47,5 +47,10 @@
     <string name="user_info_page">Informations</string>
     <string name="user_offers_page">Offers</string>
     <string name="user_inbox_page">Inbox</string>
+    <string name="Validate_modification">validate_modification</string>
+    <string name="Status">Status</string>
+    <string name="localisation">Localisation</string>
+    <string name="ModifyLocalisation">modify Localisation</string>
+    <string name="update">Update</string>
 
 </resources>
