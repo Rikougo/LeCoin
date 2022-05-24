@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homePage"
+        android:enabled="true"
+        android:icon="@drawable/home"
+        android:title="@string/homePageName"/>
+    <item
+        android:id="@+id/addPage"
+        android:enabled="true"
+        android:icon="@drawable/add"
+        android:title="@string/addPageName"/>
+    <item
+        android:id="@+id/accountPage"
+        android:enabled="true"
+        android:icon="@drawable/account"
+        android:title="@string/profilePageName"/>
+    <item
+        android:id="@+id/bookmarkPage"
+        android:enabled="true"
+        android:icon="@drawable/bookmark"
+        android:title="@string/bookmarkPageName"/>
+</menu>

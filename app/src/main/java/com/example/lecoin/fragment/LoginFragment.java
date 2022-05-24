@@ -21,8 +21,8 @@ public class LoginFragment extends Fragment {
     private static final String ARG_MAIL = "Mail";
     private static final String ARG_PWD = "Password";
 
-    private String mMail = "sample@example.com";
-    private String mPwd = "password";
+    private String mMail = "";
+    private String mPwd = "";
 
     public LoginFragment() {
         // Required empty public constructor
@@ -38,15 +38,23 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mMail = getArguments().getString(ARG_MAIL);
-            mPwd = getArguments().getString(ARG_PWD);
+        if (savedInstanceState != null) {
+            mMail = savedInstanceState.getString(ARG_MAIL);
+            mPwd = savedInstanceState.getString(ARG_PWD);
         }
 
         mParent = (HomeActivity) getActivity();
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ARG_MAIL, mMail);
+        outState.putString(ARG_PWD, mPwd);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

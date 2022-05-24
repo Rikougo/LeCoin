@@ -4,15 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.room.Update;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.lecoin.fragment.LoginFragment;
 import com.example.lecoin.fragment.ProfileFragment;
 import com.example.lecoin.fragment.SearchFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,58 +44,37 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        UpdateUI();
-    }
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
 
-    public void UpdateUI() {
-        mFragmentManager.beginTransaction()
-                .replace(R.id.mainViewContainer, SearchFragment.class, null)
-                .setReorderingAllowed(true)
-                .addToBackStack(null)
-                .commit();
-
-        // STATUS BAR
-        TabLayout statusBar = (TabLayout) findViewById(R.id.downNav);
-
-        String currentTab = statusBar.getTabAt(statusBar.getSelectedTabPosition()).getText().toString();
-
-        if (currentTab.equals("Profile")) {
-            if (mAuth.getCurrentUser() != null) {
-                System.out.println("Set profile");
-                SwitchTo(ProfileFragment.class);
-            } else {
-                System.out.println("Set search");
-                SwitchTo(LoginFragment.class);
-            }
-        } else {
-            SwitchTo(SearchFragment.class);
-        }
-
-        statusBar.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                System.out.println(tab.getText());
-                if (tab.getText().toString().equals("Profile")) {
-                    if (mAuth.getCurrentUser() != null) {
-                        System.out.println("Set profile");
-                        SwitchTo(ProfileFragment.class);
-                    } else {
-                        System.out.println("Set search");
-                        SwitchTo(LoginFragment.class);
-                    }
-                } else {
-                    SwitchTo(SearchFragment.class);
-                }
-            }
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+                switch(id) {
+                    case R.id.homePage:
+                        System.out.println("Home");
+                        SwitchTo(SearchFragment.class);
+                        break;
+                    case R.id.addPage:
+                        System.out.println("Add");
+                        break;
+                    case R.id.accountPage:
+                        System.out.println("Account");
 
-            }
+                        if (mAuth.getCurrentUser() != null) {
+                            SwitchTo(ProfileFragment.class);
+                        } else {
+                            SwitchTo(LoginFragment.class);
+                        }
+                        break;
+                    case R.id.bookmarkPage:
+                        System.out.println("Bookmark");
+                        break;
+                };
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+                return true;
             }
         });
     }
@@ -113,8 +95,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
-
-        UpdateUI();
     }
 
     public void SignupUser(String mail, String password) {
@@ -136,8 +116,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
-
-        UpdateUI();
     }
 
     public void SwitchTo(Class<? extends Fragment> fragmentClass) {
