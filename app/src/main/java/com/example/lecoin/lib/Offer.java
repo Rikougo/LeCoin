@@ -12,7 +12,7 @@ public class Offer {
     public Offer(@Nullable String title, @Nullable Date created_at, @Nullable String description) {
         mTitle = title != null ? title : "Default title";
         mCreatedAt = created_at != null ? created_at : new Date();
-        mDescription = description != null ? description : "";
+        mDescription = description != null ? description : "Some cool default description about your cool product. Cool you.";
     }
 
     public String GetTitle() { return mTitle; }

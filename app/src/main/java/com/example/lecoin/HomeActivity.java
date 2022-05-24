@@ -20,19 +20,63 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
+    public enum ActivityTabs {
+        HOME,
+        SEARCH,
+        PROFILE,
+        BOOKMARKS
+    }
+
+    static public class OnItemSelectedListener implements NavigationBarView.OnItemSelectedListener {
+        private HomeActivity mParent;
+
+        public OnItemSelectedListener(HomeActivity parent) {
+            mParent = parent;
+        }
+
+        @SuppressLint("NonConstantResourceId")
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            int id = item.getItemId();
+
+            switch(id) {
+                case R.id.homePage:
+                    System.out.println("Home");
+                    mParent.SwitchTo(SearchFragment.class, ActivityTabs.HOME);
+                    break;
+                case R.id.addPage:
+                    System.out.println("Add");
+                    mParent.SwitchTo(ListFragment.class, ActivityTabs.SEARCH);
+                    break;
+                case R.id.accountPage:
+                    if (mParent.GetAuth().getCurrentUser() != null) {
+                        mParent.SwitchTo(ProfileFragment.class, ActivityTabs.PROFILE);
+                    } else {
+                        mParent.SwitchTo(LoginFragment.class, ActivityTabs.PROFILE);
+                    }
+                    break;
+                case R.id.bookmarkPage:
+                    System.out.println("Bookmark");
+                    break;
+            };
+
+            return true;
+        }
+    }
+
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDB;
     private FragmentManager mFragmentManager;
+
+    private ActivityTabs mCurrentTab = ActivityTabs.HOME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +91,19 @@ public class HomeActivity extends AppCompatActivity {
         mDB = FirebaseFirestore.getInstance();
         mFragmentManager = getSupportFragmentManager();
 
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (mCurrentTab == ActivityTabs.PROFILE) {
+                    if (firebaseAuth.getCurrentUser() == null) {
+                        SwitchTo(LoginFragment.class, null);
+                    } else {
+                        SwitchTo(ProfileFragment.class, null);
+                    }
+                }
+            }
+        });
+
         mAuth.signOut();
     }
 
@@ -54,40 +111,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigation = findViewById(R.id.user_navigation);
 
-        bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-
-                switch(id) {
-                    case R.id.homePage:
-                        System.out.println("Home");
-                        SwitchTo(SearchFragment.class);
-                        break;
-                    case R.id.addPage:
-                        System.out.println("Add");
-                        SwitchTo(ListFragment.class);
-                        break;
-                    case R.id.accountPage:
-                        System.out.println("Account");
-
-                        if (mAuth.getCurrentUser() != null) {
-                            SwitchTo(ProfileFragment.class);
-                        } else {
-                            SwitchTo(LoginFragment.class);
-                        }
-                        break;
-                    case R.id.bookmarkPage:
-                        System.out.println("Bookmark");
-                        break;
-                };
-
-                return true;
-            }
-        });
+        // Handle navigation here*
+        bottomNavigation.setOnItemSelectedListener(new HomeActivity.OnItemSelectedListener(this));
     }
 
     public void LoginUser(String mail, String password) {
@@ -151,7 +178,15 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    public void SwitchTo(Class<? extends Fragment> fragmentClass) {
+    /**
+     * Switch the current main fragment view to the given one.
+     * Simple replace action.
+     * @param fragmentClass Fragment class you want to put
+     * @param tab Tabs ID of current page, if no change you can pass null
+     */
+    public void SwitchTo(Class<? extends Fragment> fragmentClass, ActivityTabs tab) {
+        if (tab != null) mCurrentTab = tab;
+
         mFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.slide_in, R.anim.slide_out, R.anim.slide_in, R.anim.slide_out)
                 .replace(R.id.mainViewContainer, fragmentClass, null)
@@ -159,4 +194,7 @@ public class HomeActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
+    public FirebaseFirestore GetDatabase() { return mDB; }
+    public FirebaseAuth GetAuth() { return mAuth; }
 }

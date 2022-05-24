@@ -37,5 +37,15 @@
     <string name="profile">Profile</string>
     <string name="City">Ville</string>
     <string name="Professional">Professionel</string>
+    <string name="searchPageName">Search</string>
+    <string name="default_offer_title">Intersting title</string>
+    <string name="default_offer_date">WOW INTERESTING SHIT</string>
+    <string name="default_offer_description">This is some very intersting shit.</string>
+    <string name="offer_delete">Delete</string>
+    <string name="offer_thumbnail">Offer Thumbnail</string>
+    <string name="user_name">Username</string>
+    <string name="user_info_page">Informations</string>
+    <string name="user_offers_page">Offers</string>
+    <string name="user_inbox_page">Inbox</string>
 
 </resources>

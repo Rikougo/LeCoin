@@ -1,19 +1,18 @@
 package com.example.lecoin.adapter;
 
 import android.annotation.SuppressLint;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
+
 import com.example.lecoin.R;
 import com.example.lecoin.lib.Offer;
 
-import org.w3c.dom.Text;
-
-public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> {
+public class BookmarkAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> {
     private Offer[] mOfferData;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -46,22 +45,22 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         }
     }
 
-    public OfferAdapter(Offer[] offers) {
+    public BookmarkAdapter(Offer[] offers) {
         mOfferData = offers;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OfferAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_offer, parent, false);
 
-        return new ViewHolder(v);
+        return new OfferAdapter.ViewHolder(v);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OfferAdapter.ViewHolder holder, int position) {
         Offer offer = mOfferData[position];
         holder.getTitleView().setText(offer.GetTitle());
         holder.getCreationView().setText(offer.GetCreationDate().toString());

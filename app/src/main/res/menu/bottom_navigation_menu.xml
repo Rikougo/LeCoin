@@ -8,8 +8,8 @@
     <item
         android:id="@+id/addPage"
         android:enabled="true"
-        android:icon="@drawable/add"
-        android:title="@string/addPageName"/>
+        android:icon="@drawable/search"
+        android:title="@string/searchPageName"/>
     <item
         android:id="@+id/accountPage"
         android:enabled="true"

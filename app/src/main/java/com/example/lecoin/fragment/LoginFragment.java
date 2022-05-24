@@ -83,7 +83,7 @@ public class LoginFragment extends Fragment {
         ((Button)getView().findViewById(R.id.goToRegister)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mParent.SwitchTo(RegisterFragment.class);
+                mParent.SwitchTo(RegisterFragment.class, null);
             }
         });
     }
