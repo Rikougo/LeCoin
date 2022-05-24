@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
     public enum ActivityTabs {
@@ -204,6 +205,11 @@ public class HomeActivity extends AppCompatActivity {
 
     public Task<com.google.firebase.firestore.QuerySnapshot> getAllOffer(){
         return mDB.collection("Offer").get();
+    }
+
+    public Task<DocumentSnapshot> getUser(){
+        return mDB.collection("User").document(Objects.requireNonNull(mAuth.getUid())).get();
+
     }
 
     public FirebaseFirestore GetDatabase() { return mDB; }
