@@ -246,11 +246,16 @@ public class HomeActivity extends AppCompatActivity {
      * @param tags collection of tags you want your documents to have
      * @return Add listener (Complete or Success or Failure) to get result of the task.
      */
-    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOfferByTags(String[] tags){
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOfferByTags(String[] tags) {
         Query query = mDB.collection("Offers").whereEqualTo("active", true);
 
         query = query.whereArrayContainsAny("tags", Arrays.asList(tags));
         return query.get();
+    }
+
+    //lecture firebase
+    public Task<DocumentSnapshot> getOffer(String ID){
+        return mDB.collection("Offers").document(ID).get();
     }
 
     public Task<DocumentReference> PostOffer(Offer newOffer) {
@@ -261,7 +266,23 @@ public class HomeActivity extends AppCompatActivity {
         return mDB.collection("Offers").add(newOffer);
     }
 
-    public Task<DocumentSnapshot> getUserRef(){
+    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOffer(){
+        return mDB.collection("Offers").get();
+    }
+
+    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferByUser(String ID){
+        return mDB.collection("Offers").whereEqualTo("author", getUserRef(ID)).get();
+    }
+
+    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferBySearch(String query){
+        return mDB.collection("Offers").whereGreaterThanOrEqualTo("title", query).whereLessThanOrEqualTo("title", query+'\uf8ff').get();
+    }
+
+    public DocumentReference getUserRef(String ID){
+        return mDB.collection("User").document(ID);
+    }
+
+    public Task<DocumentSnapshot> getUser(){
         return mDB.collection("User").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())).get();
     }
 

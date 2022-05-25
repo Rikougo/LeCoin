@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment {
 
         usernameView = rootView.findViewById(R.id.user_name);
 
-        mParent.getUserRef().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        mParent.getUser().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);

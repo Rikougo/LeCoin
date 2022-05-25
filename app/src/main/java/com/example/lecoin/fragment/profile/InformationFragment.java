@@ -2,7 +2,6 @@ package com.example.lecoin.fragment.profile;
 
 import android.os.Bundle;
 
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,13 +12,9 @@ import android.widget.Switch;
 
 import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
-import com.example.lecoin.fragment.LoginFragment;
 import com.example.lecoin.lib.User;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.firestore.DocumentSnapshot;
-
-import java.util.Objects;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,7 +80,7 @@ public class InformationFragment extends Fragment {
         Switch switchStatus = rootView.findViewById(R.id.status);
 
         //set all information in view
-        mParent.getUserRef().addOnSuccessListener(documentSnapshot -> {
+        mParent.getUser().addOnSuccessListener(documentSnapshot -> {
             User user = documentSnapshot.toObject(User.class);
             System.out.println(user);
             mailText.getEditText().setText(mParent.authMail());
@@ -97,7 +92,7 @@ public class InformationFragment extends Fragment {
 
         //update firebase with new info when pressed
         updating.setOnClickListener(view -> {
-            mParent.getUserRef().addOnSuccessListener(documentSnapshot -> {
+            mParent.getUser().addOnSuccessListener(documentSnapshot -> {
                 User user = documentSnapshot.toObject(User.class);
                 if(!nameText.getEditText().getText().toString().equals("") && !nameText.getEditText().getText().toString().equals(user.name)){
                     mParent.updateName(nameText.getEditText().getText().toString());
@@ -107,6 +102,28 @@ public class InformationFragment extends Fragment {
                 }
                 mParent.updateStatus(switchStatus.isChecked());
             });
+        });
+
+        /*
+        mParent.getAllOfferByUser(mParent.GetAuth().getUid()).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    System.out.println(document.getId() + " => " + document.getData());
+                }
+            } else {
+                System.out.println("Error getting documents: ");
+            }
+        });*/
+
+        mParent.getAllOfferBySearch("cHèVre").addOnCompleteListener(task -> {
+            System.out.println("no");
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    System.out.println(document.getId() + " => " + document.getData());
+                }
+            } else {
+                System.out.println("Error getting documents: ");
+            }
         });
 
         return rootView;
