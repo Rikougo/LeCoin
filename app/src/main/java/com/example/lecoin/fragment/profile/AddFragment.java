@@ -20,7 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 
-import java.util.ArrayList;
+import java.text.Normalizer;
 import java.util.Arrays;
 
 /**
@@ -88,6 +88,9 @@ public class AddFragment extends Fragment implements TextWatcher {
             public void onClick(View view) {
                 Offer offer = new Offer();
                 offer.title = title.trim();
+                String query = Normalizer.normalize(offer.title.toLowerCase(), Normalizer.Form.NFD);
+                query = query.replaceAll("[^\\p{ASCII}]", "");
+                offer.query =query;
                 offer.content = content.trim();
                 offer.price = price;
                 offer.tags = Arrays.asList(tags);
@@ -100,8 +103,7 @@ public class AddFragment extends Fragment implements TextWatcher {
 
                 if (offer.price <= 0.0f)
                     priceInput.setError("Price must be over 0$.");
-
-
+                
                 if (offer.tags.size() <= 0)
                     tagsInput.setError("Please specify at least one tag.");
 

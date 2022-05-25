@@ -4,26 +4,31 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/activity_inscription.xml" value="0.23489583333333333" />
         <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/activity_login.xml" value="0.23489583333333333" />
         <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/activity_main.xml" value="0.23489583333333333" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_bookmark.xml" value="0.26358695652173914" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_information.xml" value="0.25" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_list.xml" value="0.26358695652173914" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_login.xml" value="0.23489583333333333" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_offer.xml" value="0.25" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_register.xml" value="0.23489583333333333" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/alex_/OneDrive/Documents/GitHub/LeCoin/app/src/main/res/layout/fragment_zoomedoffer.xml" value="0.24270833333333333" />
         <entry key="..\:/Users/samhe/AndroidStudioProjects/LeCoin/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/Users/samhe/AndroidStudioProjects/LeCoin/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1695" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1695" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/fragment_login.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/fragment_profile.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/fragment_register.xml" value="0.3625" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/fragment_search.xml" value="0.3625" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/fragment_second.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/samhe/Desktop/programmation/mobile/LeCoin/app/src/main/res/layout/fragment_status_bar.xml" value="0.25" />
         <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/activity_home.xml" value="0.33" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/content_register.xml" value="0.2265625" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_add.xml" value="0.25" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_bookmark.xml" value="0.23802083333333332" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_information.xml" value="0.35190217391304346" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_list.xml" value="0.25" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_login.xml" value="0.2265625" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_offer.xml" value="0.25" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_profile.xml" value="0.23802083333333332" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_register.xml" value="0.196875" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_search.xml" value="0.2265625" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/layout/fragment_status_bar.xml" value="0.23802083333333332" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3625" />
-        <entry key="..\:/programmation/android/LeCoin/app/src/main/res/menu/profile_navigation_menu.xml" value="0.3625" />
       </map>
     </option>
   </component>
