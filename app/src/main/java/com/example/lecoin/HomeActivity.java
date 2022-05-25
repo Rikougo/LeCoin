@@ -22,7 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -212,8 +211,8 @@ public class HomeActivity extends AppCompatActivity {
         return mDB.collection("Offers").whereEqualTo("author", getUser(ID)).get();
     }
 
-    public Task<DocumentSnapshot> getUser(String ID){
-        return mDB.collection("User").document(ID).get();
+    public DocumentReference getUser(String ID){
+        return mDB.collection("User").document(ID);
     }
 
     public Task<DocumentSnapshot> getUserRef(){

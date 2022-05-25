@@ -112,32 +112,15 @@ public class InformationFragment extends Fragment {
                 mParent.updateStatus(switchStatus.isChecked());
             });
         });
-        System.out.println("coucou");/*
-        mParent.getAllOffer().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                System.out.println("oh non");
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        System.out.println(document.getId() + " => " + document.getData());
-                    }
-                } else {
-                    System.out.println("Error getting documents: ");
+
+        /*
+        mParent.getAllOfferByUser(mParent.GetAuth().getUid()).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    System.out.println(document.getId() + " => " + document.getData());
                 }
-            }
-        });*/
-/*
-        mParent.getAllOfferByUser(mParent.GetAuth().getUid()).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                System.out.println("oh non");
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        System.out.println(document.getId() + " => " + document.getData());
-                    }
-                } else {
-                    System.out.println("Error getting documents: ");
-                }
+            } else {
+                System.out.println("Error getting documents: ");
             }
         });*/
 
