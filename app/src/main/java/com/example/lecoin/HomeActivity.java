@@ -238,7 +238,7 @@ public class HomeActivity extends AppCompatActivity {
      * @return Add listener (Complete or Success or Failure) to get result of the task.
      */
     public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOffer() {
-        return mDB.collection("Offers").whereEqualTo("active", true).get();
+        return mDB.collection("Offers").whereEqualTo("active", true).orderBy("created_at", Query.Direction.DESCENDING).get();
     }
 
     /**
@@ -250,6 +250,12 @@ public class HomeActivity extends AppCompatActivity {
         Query query = mDB.collection("Offers").whereEqualTo("active", true);
 
         query = query.whereArrayContainsAny("tags", Arrays.asList(tags));
+        return query.get();
+    }
+
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestLastOffer() {
+        Query query = mDB.collection("Offers").orderBy("created_at", Query.Direction.DESCENDING).limit(1);
+
         return query.get();
     }
 

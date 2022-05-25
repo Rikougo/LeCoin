@@ -18,6 +18,7 @@ import com.example.lecoin.R;
 import com.example.lecoin.lib.Offer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
@@ -41,10 +42,10 @@ public class AddFragment extends Fragment implements TextWatcher {
     private float price = 0.0f;
     private String[] tags = new String[] {};
 
-    private EditText titleInput;
-    private EditText priceInput;
-    private EditText contentInput;
-    private EditText tagsInput;
+    private TextInputLayout titleInput;
+    private TextInputLayout priceInput;
+    private TextInputLayout contentInput;
+    private TextInputLayout tagsInput;
     private Button   sendButton;
 
     public AddFragment() { }
@@ -77,10 +78,10 @@ public class AddFragment extends Fragment implements TextWatcher {
 
         mParent = (HomeActivity) getActivity();
 
-        titleInput   = (EditText) rootView.findViewById(R.id.add_title_input);
-        priceInput   = (EditText) rootView.findViewById(R.id.add_price_input);
-        contentInput = (EditText) rootView.findViewById(R.id.add_content_input);
-        tagsInput    = (EditText) rootView.findViewById(R.id.add_tags_input);
+        titleInput   = (TextInputLayout) rootView.findViewById(R.id.add_title_input);
+        priceInput   = (TextInputLayout) rootView.findViewById(R.id.add_price_input);
+        contentInput = (TextInputLayout) rootView.findViewById(R.id.add_content_input);
+        tagsInput    = (TextInputLayout) rootView.findViewById(R.id.add_tags_input);
         sendButton   = (Button) rootView.findViewById(R.id.add_send_button);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -112,9 +113,17 @@ public class AddFragment extends Fragment implements TextWatcher {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if (task.isSuccessful()) {
+                            priceInput.setErrorEnabled(false);
+                            contentInput.setErrorEnabled(false);
+                            titleInput.setErrorEnabled(false);
+                            tagsInput.setErrorEnabled(false);
                             Clear();
                         } else {
-                            titleInput.setError("Error on import");
+                            titleInput.setError("Eror with server.");
+                            priceInput.setError("Eror with server.");
+                            contentInput.setError("Eror with server.");
+                            tagsInput.setError("Eror with server.");
+                            sendButton.setError("Eror with server.");
                         }
                     }
                 });
@@ -123,19 +132,20 @@ public class AddFragment extends Fragment implements TextWatcher {
 
         // Text changed listener will keep updated every
         // attributes
-        titleInput.addTextChangedListener(this);
-        priceInput.addTextChangedListener(this);
-        contentInput.addTextChangedListener(this);
+        titleInput.getEditText().addTextChangedListener(this);
+        priceInput.getEditText().addTextChangedListener(this);
+        contentInput.getEditText().addTextChangedListener(this);
+        tagsInput.getEditText().addTextChangedListener(this);
         sendButton.addTextChangedListener(this);
 
         return rootView;
     }
 
     public void Clear() {
-        titleInput.setText("");
-        priceInput.setText("");
-        contentInput.setText("");
-        tagsInput.setText("");
+        titleInput.getEditText().setText("");
+        priceInput.getEditText().setText("");
+        contentInput.getEditText().setText("");
+        tagsInput.getEditText().setText("");
     }
 
     @Override
@@ -143,13 +153,18 @@ public class AddFragment extends Fragment implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        String rawPrice = priceInput.getText().toString();
-        String rawTags = tagsInput.getText().toString();
+        priceInput.setErrorEnabled(false);
+        contentInput.setErrorEnabled(false);
+        titleInput.setErrorEnabled(false);
+        tagsInput.setErrorEnabled(false);
+
+        String rawPrice = priceInput.getEditText().getText().toString().replaceAll("[^\\d.]", "");
+        String rawTags = tagsInput.getEditText().getText().toString();
 
         tags    = ParseTags(rawTags);
-        title   = titleInput.getText().toString();
+        title   = titleInput.getEditText().getText().toString();
         price   = rawPrice.isEmpty() ? 0.0f : Float.parseFloat(rawPrice);
-        content = contentInput.getText().toString();
+        content = contentInput.getEditText().getText().toString();
     }
 
     @Override

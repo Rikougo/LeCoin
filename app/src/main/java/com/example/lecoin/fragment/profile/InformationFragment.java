@@ -115,7 +115,7 @@ public class InformationFragment extends Fragment {
             }
         });*/
 
-        mParent.getAllOfferBySearch("cHèVre").addOnCompleteListener(task -> {
+        /*mParent.getAllOfferBySearch("cHèVre").addOnCompleteListener(task -> {
             System.out.println("no");
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -124,7 +124,7 @@ public class InformationFragment extends Fragment {
             } else {
                 System.out.println("Error getting documents: ");
             }
-        });
+        });*/
 
         return rootView;
     }

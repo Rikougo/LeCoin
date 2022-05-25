@@ -65,9 +65,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:tabIconTint="@color/selected_color"
-        app:tabIndicatorColor="@color/dark_color"
-        app:tabSelectedTextColor="@color/dark_color"
-        app:tabTextColor="@color/base_color">
+        app:tabIndicatorColor="@color/light_color"
+        app:tabTextColor="@color/selected_color">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/user_info_tab"

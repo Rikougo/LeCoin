@@ -5,12 +5,14 @@
     android:id="@+id/list_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_color"
     tools:context=".fragment.ListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/dark_color"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,20 +22,12 @@
             android:id="@+id/list_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:foregroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.example.lecoin.utils.MultiSpinner
-            android:id="@+id/list_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_search"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
