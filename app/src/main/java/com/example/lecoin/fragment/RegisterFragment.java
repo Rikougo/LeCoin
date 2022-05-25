@@ -53,10 +53,10 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mParent.SignupUser(
-                        ((EditText)getView().findViewById(R.id.inputMailR)).getText().toString(),
-                        ((EditText)getView().findViewById(R.id.inputPasswordR)).getText().toString(),
-                        ((EditText)getView().findViewById(R.id.inputUsernameR)).getText().toString(),
-                        ((EditText)getView().findViewById(R.id.inputCityR)).getText().toString(),
+                        ((EditText)getView().findViewById(R.id.register_input_mail)).getText().toString(),
+                        ((EditText)getView().findViewById(R.id.register_input_password)).getText().toString(),
+                        ((EditText)getView().findViewById(R.id.register_input_username)).getText().toString(),
+                        ((EditText)getView().findViewById(R.id.register_input_city)).getText().toString(),
                         ((CheckBox)getView().findViewById(R.id.checkBoxStatusR)).isChecked()
                 );
             }

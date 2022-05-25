@@ -11,19 +11,35 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#7A5A83"
+        android:background="@color/base_color"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/user_avatar"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:scaleType="fitCenter"
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/circularImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@drawable/renard"
+            app:civ_border_color="@color/dark_color"
+            app:civ_border_width="4dp"
+            app:civ_shadow="true"
+            app:civ_shadow_color="@color/dark_color"
+            app:civ_shadow_radius="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/user_disconnect"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/disconnect"
+            android:tint="@color/light_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -32,22 +48,12 @@
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_name"
+            android:text="@string/username"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_avatar" />
-
-        <ImageButton
-            android:id="@+id/user_disconnect"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="#00FFFFFF"
-            android:src="@drawable/disconnect"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:layout_constraintTop_toBottomOf="@+id/circularImageView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -55,8 +61,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:tabIconTint="@color/selected_color"
+        app:tabIndicatorColor="@color/dark_color"
+        app:tabSelectedTextColor="@color/dark_color"
+        app:tabTextColor="@color/base_color">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/user_info_tab"

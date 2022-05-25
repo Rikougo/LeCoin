@@ -17,26 +17,26 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/register_title"
             android:layout_width="317dp"
             android:layout_height="38dp"
             android:gravity="center"
-            android:text="@string/create_account"
+            android:text="@string/signup"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/inputUsernameR"
+            android:id="@+id/register_input_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/User"
+            android:hint="@string/username"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/inputMailR"
+            android:id="@+id/register_input_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -47,23 +47,23 @@
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/inputPasswordR"
+            android:id="@+id/register_input_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="48dp"
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/inputCityR"
+            android:id="@+id/register_input_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/City"
+            android:hint="@string/city"
             android:inputType="textAutoComplete"
             android:minHeight="48dp"
             tools:ignore="TextContrastCheck" />
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#855F8F"
-            android:text="@string/sign_up"
+            android:text="@string/signup"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Button
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#00FFFFFF"
-            android:text="@string/j_ai_d_j_un_compte"
+            android:text="@string/already_signed"
             android:textColor="#757575" />
 
     </LinearLayout>

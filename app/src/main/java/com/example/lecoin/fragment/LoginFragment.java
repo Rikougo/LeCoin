@@ -65,22 +65,22 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)  {
-        ((EditText)getView().findViewById(R.id.inputUsername)).setText(mMail);
-        ((EditText)getView().findViewById(R.id.inputPassword)).setText(mPwd);
+        ((EditText)getView().findViewById(R.id.signin_input_username)).setText(mMail);
+        ((EditText)getView().findViewById(R.id.signin_input_password)).setText(mPwd);
 
-        Button login = getView().findViewById(R.id.loginButton);
+        Button login = getView().findViewById(R.id.signin_login_button);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mParent.LoginUser(
-                        ((EditText)getView().findViewById(R.id.inputUsername)).getText().toString(),
-                        ((EditText)getView().findViewById(R.id.inputPassword)).getText().toString()
-                );
+                String username = ((EditText)getView().findViewById(R.id.signin_input_username)).getText().toString();
+                String password = ((EditText)getView().findViewById(R.id.signin_input_password)).getText().toString();
+                if(!username.equals("") && !password.equals(""))
+                mParent.LoginUser(username, password);
             }
         });
 
-        ((Button)getView().findViewById(R.id.goToRegister)).setOnClickListener(new View.OnClickListener() {
+        ((Button)getView().findViewById(R.id.signin_register_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mParent.SwitchTo(RegisterFragment.class, null);

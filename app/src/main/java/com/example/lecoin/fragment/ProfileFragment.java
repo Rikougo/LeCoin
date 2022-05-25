@@ -1,23 +1,28 @@
 package com.example.lecoin.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
 import com.example.lecoin.fragment.profile.AddFragment;
 import com.example.lecoin.fragment.profile.InformationFragment;
+import com.example.lecoin.lib.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.GeoPoint;
 
@@ -31,7 +36,7 @@ import java.util.Objects;
 public class ProfileFragment extends Fragment {
     private HomeActivity mParent;
 
-    private TabLayout tabLayout;
+    private TextView usernameView;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -56,7 +61,21 @@ public class ProfileFragment extends Fragment {
 
         mParent = (HomeActivity) getActivity();
 
-        tabLayout = (TabLayout) rootView.findViewById(R.id.user_tabs);
+        usernameView = rootView.findViewById(R.id.user_name);
+
+        mParent.getUserRef().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                if (user == null)
+                    usernameView.setText("Anonymous user");
+                else
+                    usernameView.setText(user.name);
+            }
+        });
+
+        // TAB NAVIGATION INSIDE USER
+        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.user_tabs);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -90,83 +109,34 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // DISCONNECTION BUTTON
         AppCompatImageButton disconnectButton = rootView.findViewById(R.id.user_disconnect);
 
         disconnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mParent.GetAuth().signOut();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+                builder.setCancelable(true);
+                builder.setTitle("Danger");
+                builder.setMessage("Do you really want to sign out ?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mParent.GetAuth().signOut();
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
         return rootView;
-    }
-
-    public void updateName(String newName){
-        DocumentReference updateUser = mParent.GetDatabase().collection("User").document(Objects.requireNonNull(mParent.GetAuth().getUid()));
-
-        updateUser
-                .update("name", newName)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        System.out.println("User name succesfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.err.println("Error updating user name");
-                    }
-                });
-    }
-
-    public void updateStatus(int status){
-        DocumentReference updateUser = mParent.GetDatabase().collection("User").document(Objects.requireNonNull(mParent.GetAuth().getUid()));
-
-        updateUser
-                .update("status", status)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        System.out.println("User status succesfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.err.println("Error updating user status");
-                    }
-                });
-    }
-
-    public void updateBookmarks(int bookmark, boolean addRemove) {
-        DocumentReference updateUser = mParent.GetDatabase().collection("User").document(Objects.requireNonNull(mParent.GetAuth().getUid()));
-
-        if(addRemove){
-            updateUser.update("bookmarks", FieldValue.arrayUnion("bookmark"));
-        }
-        else{
-            updateUser.update("bookmarks", FieldValue.arrayRemove("bookmark"));
-        }
-    }
-
-    public void updateLocalisation(GeoPoint localisation){
-        DocumentReference updateUser = mParent.GetDatabase().collection("User").document(Objects.requireNonNull(mParent.GetAuth().getUid()));
-
-        updateUser
-                .update("localisation",  localisation)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        System.out.println("User localisation succesfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.err.println("Error updating user localisation");
-                    }
-                });
     }
 }

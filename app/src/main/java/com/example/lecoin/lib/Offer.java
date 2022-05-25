@@ -15,7 +15,7 @@ public class Offer {
     public List<String> images;
     public List<String> tags;
     public DocumentReference author;
-    public int price;
+    public float price;
 
     public Offer(){}
 

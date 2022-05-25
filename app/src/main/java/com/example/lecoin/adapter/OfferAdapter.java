@@ -75,7 +75,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         holder.GetTitleView().setText(offer.GetTitle());
         holder.GetCreationView().setText(offer.GetCreationDate().toString());
         holder.GetDescView().setText(offer.GetDescription());
-        holder.GetPriceView().setText(Integer.toString(offer.price));
+        holder.GetPriceView().setText(Float.toString(offer.price));
     }
 
     @Override

@@ -4,13 +4,13 @@ import com.google.firebase.firestore.GeoPoint;
 
 public class User {
     public String name;
-    public int status;
+    public boolean status;
     public GeoPoint localisation;
     public int[] bookmarks;
 
     public User(){}
 
-    public User(String name, int status, GeoPoint localisation, int[] bookmarks){
+    public User(String name, boolean status, GeoPoint localisation, int[] bookmarks){
         this.name = name;
         this.status = status;
         this.localisation = localisation;
@@ -21,7 +21,7 @@ public class User {
         return name;
     }
 
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -32,6 +32,10 @@ public class User {
     public int[] getBookmarks() {
         return bookmarks;
     }
+
+    /*public String getPlace() {
+        return place;
+    }*/
 
     public boolean equals(User other) {
         return other.name.equals(name);

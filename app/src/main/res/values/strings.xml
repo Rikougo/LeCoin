@@ -1,41 +1,46 @@
 <resources>
     <string name="app_name">LeCoin</string>
     <string name="lieu">Lieu</string>
-    <string name="chercher">Chercher</string>
-    <string name="game_type">Jeu</string>
-    <string name="car_type">Voiture</string>
-    <string name="animal_type">Animal</string>
-    <string name="house_type">Maison</string>
-    <string name="min_price">Min €</string>
-    <string name="max_price">Max €</string>
-    <string name="search_object">Recherche</string>
-    <string name="Connection">Se connecter</string>
-    <string name="Password">Mot de passe</string>
-    <string name="User">Utilisateur</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="short_min">Min</string>
+    <string name="short_max">Max</string>
+    <string name="object_name">Object name</string>
+    <string name="search">Search</string>
+    <string name="money">$</string>
+    <string name="send">Send</string>
+
+    <!-- User stuff -->
+    <string name="signin">Sign in</string>
+    <string name="signup">Sign up</string>
+    <string name="not_yet_signed">I don\'t have an account</string>
+    <string name="already_signed">I have an account</string>
+    <string name="password">Password</string>
+    <string name="user">User</string>
+    <string name="username">Username</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="profile">Profile</string>
+    <string name="city">City</string>
+    <string name="status_regular">Regular</string>
+    <string name="status_professional">Professional</string>
+
+    <!-- Pages names -->
+    <string name="home_page_name">Home</string>
+    <string name="add_page_name">Add</string>
+    <string name="bookmark_page_name">Bookmark</string>
+    <string name="profile_page_name">Profile</string>
+
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="homePageName">Home</string>
-    <string name="addPageName">Add</string>
-    <string name="bookmarkPageName">Bookmark</string>
-    <string name="profilePageName">Profile</string>
-    <string name="sign_up">S\'inscrire</string>
-    <string name="create_account">Créer un compte</string>
     <string name="mail">Mail</string>
-    <string name="j_ai_d_j_un_compte">J\'ai déjà un compte</string>
-    <string name="no_account">Je n\'ai pas de compte</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="profile">Profile</string>
-    <string name="City">Ville</string>
     <string name="Professional">Professionel</string>
     <string name="searchPageName">Search</string>
     <string name="default_offer_title">Intersting title</string>
@@ -43,9 +48,17 @@
     <string name="default_offer_description">This is some very intersting shit.</string>
     <string name="offer_delete">Delete</string>
     <string name="offer_thumbnail">Offer Thumbnail</string>
-    <string name="user_name">Username</string>
+
     <string name="user_info_page">Informations</string>
     <string name="user_offers_page">Offers</string>
     <string name="user_add_page">Add</string>
-
+    <string name="user_inbox_page">Inbox</string>
+    <string name="Validate_modification">validate_modification</string>
+    <string name="Status">Status</string>
+    <string name="localisation">Localisation</string>
+    <string name="ModifyLocalisation">modify Localisation</string>
+    <string name="update">Update</string>
+    <string name="input_tags_hint">Tags separated with ;</string>
+    <string name="offer_creation_title">Create your offer</string>
+    <string name="input_content_hint">Cool content about your item.</string>
 </resources>

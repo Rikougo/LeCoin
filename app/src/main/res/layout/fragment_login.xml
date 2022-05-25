@@ -23,44 +23,47 @@
             android:layout_width="317dp"
             android:layout_height="38dp"
             android:gravity="center"
-            android:text="@string/Connection"
+            android:text="@string/signin"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/inputUsername"
+            android:id="@+id/signin_input_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/User"
+            android:hint="@string/username"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             tools:ignore="TextContrastCheck" />
 
         <EditText
-            android:id="@+id/inputPassword"
+            android:id="@+id/signin_input_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="48dp"
             tools:ignore="TextContrastCheck" />
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/signin_login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#855F8F"
-            android:text="@string/Connection"
+            android:backgroundTint="@color/dark_color"
+            android:text="@string/signin"
+            android:textColor="@color/selected_color"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Button
-            android:id="@+id/goToRegister"
+            android:id="@+id/signin_register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/no_account" />
+            android:backgroundTint="@color/dark_color"
+            android:text="@string/not_yet_signed"
+            android:textColor="@color/selected_color" />
 
     </LinearLayout>
 

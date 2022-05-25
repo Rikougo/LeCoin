@@ -22,17 +22,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.GeoPoint;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
     public enum ActivityTabs {
@@ -74,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.bookmarkPage:
                     if (mParent.mCurrentTab == ActivityTabs.BOOKMARKS) break;
                     break;
-            };
+            }
 
             return true;
         }
@@ -175,10 +177,9 @@ public class HomeActivity extends AppCompatActivity {
                     // posé les informations supplémentaires dans un nouveau docuent dans
                     // la collection user
                     Map<String, Object> user = new HashMap<>();
-                    user.put("mail", mail);
                     user.put("name", name);
                     user.put("place", place);
-                    user.put("Status", status);
+                    user.put("status", status);
 
 
                     mDB.collection("User").document(mAuth.getCurrentUser().getUid())
@@ -236,7 +237,7 @@ public class HomeActivity extends AppCompatActivity {
      * Request all offers with no filters
      * @return Add listener (Complete or Success or Failure) to get result of the task.
      */
-    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOffer(){
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOffer() {
         return mDB.collection("Offers").whereEqualTo("active", true).get();
     }
 
@@ -250,6 +251,71 @@ public class HomeActivity extends AppCompatActivity {
 
         query = query.whereArrayContainsAny("tags", Arrays.asList(tags));
         return query.get();
+    }
+
+    public Task<DocumentReference> PostOffer(Offer newOffer) {
+        newOffer.created_at = new Date();
+        newOffer.active = true;
+        newOffer.author = mDB.collection("User").document(Objects.requireNonNull(mAuth.getUid()));
+
+        return mDB.collection("Offers").add(newOffer);
+    }
+
+    public Task<DocumentSnapshot> getUserRef(){
+        return mDB.collection("User").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())).get();
+    }
+
+    public String authMail(){
+        return Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+    }
+
+
+
+    // --- UPDATE USER INFORMATION --- //
+    public void updateMail(String newMail){
+        mAuth.getCurrentUser().updateEmail(newMail).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                System.out.println("User email updated.");
+            }
+        });
+    }
+
+    public void updateName(String newName){
+        DocumentReference updateUser = mDB.collection("User").document(Objects.requireNonNull(GetAuth().getUid()));
+
+        updateUser
+                .update("name", newName)
+                .addOnSuccessListener(aVoid -> System.out.println("User name succesfully updated!"))
+                .addOnFailureListener(e -> System.err.println("Error updating user name"));
+    }
+
+    public void updateStatus(boolean status){
+        DocumentReference updateUser = mDB.collection("User").document(Objects.requireNonNull(GetAuth().getUid()));
+
+        updateUser
+                .update("status", status)
+                .addOnSuccessListener(aVoid -> System.out.println("User status succesfully updated!"))
+                .addOnFailureListener(e -> System.err.println("Error updating user status"));
+    }
+
+    public void updateBookmarks(int bookmark, boolean addRemove) {
+        DocumentReference updateUser = mDB.collection("User").document(Objects.requireNonNull(GetAuth().getUid()));
+
+        if(addRemove){
+            updateUser.update("bookmarks", FieldValue.arrayUnion("bookmark"));
+        }
+        else{
+            updateUser.update("bookmarks", FieldValue.arrayRemove("bookmark"));
+        }
+    }
+
+    public void updateLocalisation(GeoPoint localisation){
+        DocumentReference updateUser = mDB.collection("User").document(Objects.requireNonNull(GetAuth().getUid()));
+
+        updateUser
+                .update("localisation",  localisation)
+                .addOnSuccessListener(aVoid -> System.out.println("User localisation succesfully updated!"))
+                .addOnFailureListener(e -> System.err.println("Error updating user localisation"));
     }
 
     public FirebaseFirestore GetDatabase() { return mDB; }

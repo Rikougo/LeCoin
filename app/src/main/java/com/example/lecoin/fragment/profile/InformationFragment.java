@@ -2,13 +2,24 @@ package com.example.lecoin.fragment.profile;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Switch;
 
+import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
+import com.example.lecoin.fragment.LoginFragment;
+import com.example.lecoin.lib.User;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +36,7 @@ public class InformationFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private HomeActivity mParent;
 
     public InformationFragment() {
         // Required empty public constructor
@@ -61,6 +73,42 @@ public class InformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_information, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_information, container, false);
+
+        mParent = (HomeActivity) getActivity();
+
+        //get all button & textfield
+        Button updating = rootView.findViewById(R.id.update);
+        TextInputLayout mailText = rootView.findViewById(R.id.user_info_mail);
+        TextInputLayout nameText = rootView.findViewById(R.id.User_info_name);
+        TextInputLayout posText = rootView.findViewById(R.id.User_info_localisation);
+        Switch switchStatus = rootView.findViewById(R.id.status);
+
+        //set all information in view
+        mParent.getUserRef().addOnSuccessListener(documentSnapshot -> {
+            User user = documentSnapshot.toObject(User.class);
+            System.out.println(user);
+            mailText.getEditText().setText(mParent.authMail());
+            nameText.getEditText().setText(user.getName());
+            //posText.getEditText().setText(user.getLocalisation().toString());
+            switchStatus.setChecked(user.getStatus());
+        });
+
+
+        //update firebase with new info when pressed
+        updating.setOnClickListener(view -> {
+            mParent.getUserRef().addOnSuccessListener(documentSnapshot -> {
+                User user = documentSnapshot.toObject(User.class);
+                if(!nameText.getEditText().getText().toString().equals("") && !nameText.getEditText().getText().toString().equals(user.name)){
+                    mParent.updateName(nameText.getEditText().getText().toString());
+                }
+                if(!mailText.getEditText().getText().toString().equals("") && !mailText.getEditText().getText().toString().equals(mParent.authMail())){
+                    mParent.updateMail(mailText.getEditText().getText().toString());
+                }
+                mParent.updateStatus(switchStatus.isChecked());
+            });
+        });
+
+        return rootView;
     }
 }
