@@ -2,8 +2,6 @@ package com.example.lecoin.fragment.profile;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,17 +12,8 @@ import android.widget.Switch;
 
 import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
-import com.example.lecoin.fragment.LoginFragment;
 import com.example.lecoin.lib.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,7 +79,7 @@ public class InformationFragment extends Fragment {
         Switch switchStatus = rootView.findViewById(R.id.status);
 
         //set all information in view
-        mParent.getUserRef().addOnSuccessListener(documentSnapshot -> {
+        mParent.getUser().addOnSuccessListener(documentSnapshot -> {
             User user = documentSnapshot.toObject(User.class);
             mailText.getEditText().setText(mParent.authMail());
             nameText.getEditText().setText(user.getName());
@@ -101,7 +90,7 @@ public class InformationFragment extends Fragment {
 
         //update firebase with new info when pressed
         updating.setOnClickListener(view -> {
-            mParent.getUserRef().addOnSuccessListener(documentSnapshot -> {
+            mParent.getUser().addOnSuccessListener(documentSnapshot -> {
                 User user = documentSnapshot.toObject(User.class);
                 if(!nameText.getEditText().getText().toString().equals("") && !nameText.getEditText().getText().toString().equals(user.name)){
                     mParent.updateName(nameText.getEditText().getText().toString());

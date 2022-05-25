@@ -208,14 +208,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferByUser(String ID){
-        return mDB.collection("Offers").whereEqualTo("author", getUser(ID)).get();
+        return mDB.collection("Offers").whereEqualTo("author", getUserRef(ID)).get();
     }
 
-    public DocumentReference getUser(String ID){
+    public DocumentReference getUserRef(String ID){
         return mDB.collection("User").document(ID);
     }
 
-    public Task<DocumentSnapshot> getUserRef(){
+    public Task<DocumentSnapshot> getUser(){
         return mDB.collection("User").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())).get();
     }
 
