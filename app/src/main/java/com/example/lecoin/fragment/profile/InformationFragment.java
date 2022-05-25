@@ -2,6 +2,7 @@ package com.example.lecoin.fragment.profile;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
@@ -15,9 +16,13 @@ import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
 import com.example.lecoin.fragment.LoginFragment;
 import com.example.lecoin.lib.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Objects;
 
@@ -107,6 +112,34 @@ public class InformationFragment extends Fragment {
                 mParent.updateStatus(switchStatus.isChecked());
             });
         });
+        System.out.println("coucou");/*
+        mParent.getAllOffer().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                System.out.println("oh non");
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        System.out.println(document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    System.out.println("Error getting documents: ");
+                }
+            }
+        });*/
+/*
+        mParent.getAllOfferByUser(mParent.GetAuth().getUid()).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                System.out.println("oh non");
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        System.out.println(document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    System.out.println("Error getting documents: ");
+                }
+            }
+        });*/
 
         return rootView;
     }

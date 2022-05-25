@@ -201,11 +201,19 @@ public class HomeActivity extends AppCompatActivity {
     }
     //lecture firebase
     public Task<DocumentSnapshot> getOffer(String ID){
-        return mDB.collection("Offer").document(ID).get();
+        return mDB.collection("Offers").document(ID).get();
     }
 
     public Task<com.google.firebase.firestore.QuerySnapshot> getAllOffer(){
-        return mDB.collection("Offer").get();
+        return mDB.collection("Offers").get();
+    }
+
+    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferByUser(String ID){
+        return mDB.collection("Offers").whereEqualTo("author", getUser(ID)).get();
+    }
+
+    public Task<DocumentSnapshot> getUser(String ID){
+        return mDB.collection("User").document(ID).get();
     }
 
     public Task<DocumentSnapshot> getUserRef(){
