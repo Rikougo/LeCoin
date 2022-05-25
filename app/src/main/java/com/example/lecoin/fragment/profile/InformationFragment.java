@@ -14,6 +14,7 @@ import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
 import com.example.lecoin.lib.User;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -112,6 +113,17 @@ public class InformationFragment extends Fragment {
                 System.out.println("Error getting documents: ");
             }
         });*/
+
+        mParent.getAllOfferBySearch("cHèVre").addOnCompleteListener(task -> {
+            System.out.println("no");
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    System.out.println(document.getId() + " => " + document.getData());
+                }
+            } else {
+                System.out.println("Error getting documents: ");
+            }
+        });
 
         return rootView;
     }
