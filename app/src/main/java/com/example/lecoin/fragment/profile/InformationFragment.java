@@ -104,18 +104,9 @@ public class InformationFragment extends Fragment {
             });
         });
 
-        /*
-        mParent.getAllOfferByUser(mParent.GetAuth().getUid()).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    System.out.println(document.getId() + " => " + document.getData());
-                }
-            } else {
-                System.out.println("Error getting documents: ");
-            }
-        });*/
 
-        /*mParent.getAllOfferBySearch("cHèVre").addOnCompleteListener(task -> {
+
+        mParent.getAllOfferBySearch("chevre").addOnCompleteListener(task -> {
             System.out.println("no");
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -124,7 +115,7 @@ public class InformationFragment extends Fragment {
             } else {
                 System.out.println("Error getting documents: ");
             }
-        });*/
+        });
 
         return rootView;
     }

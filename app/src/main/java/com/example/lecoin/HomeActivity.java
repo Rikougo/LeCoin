@@ -281,7 +281,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferBySearch(String query){
-        return mDB.collection("Offers").whereGreaterThanOrEqualTo("title", query).whereLessThanOrEqualTo("title", query+'\uf8ff').get();
+        return mDB.collection("Offers").whereGreaterThanOrEqualTo("titleLC", query).whereLessThanOrEqualTo("titleLC", query+'\uf8ff').get();
     }
 
     public DocumentReference getUserRef(String ID){

@@ -67,4 +67,5 @@
     <string name="offer_default_title">Okay</string>
     <string name="offer_save">Save</string>
     <string name="offer_open">Open</string>
+    <string name="pictures_scroller">pictures scroller</string>
 </resources>
