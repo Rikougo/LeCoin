@@ -3,33 +3,42 @@ package com.example.lecoin.lib;
 import androidx.annotation.Nullable;
 
 import java.util.Date;
+import java.util.List;
+
+import com.google.firebase.firestore.DocumentReference;
 
 public class Offer {
-    private String mTitle;
-    private Date mCreatedAt;
-    private String mDescription;
+    public String title;
+    public Date created_at;
+    public String content;
+    public boolean active;
+    public List<String> images;
+    public List<String> tags;
+    public DocumentReference author;
+    public int price;
 
     public Offer(){}
 
     public Offer(@Nullable String title, @Nullable Date created_at, @Nullable String description) {
-        mTitle = title != null ? title : "Default title";
-        mCreatedAt = created_at != null ? created_at : new Date();
-        mDescription = description != null ? description : "Some cool default description about your cool product. Cool you.";
+        this.title = title != null ? title : "Default title";
+        this.created_at = created_at != null ? created_at : new Date();
+        this.content = description != null ? description : "Some cool default description about your cool product. Cool you.";
     }
 
-    public String GetTitle() { return mTitle; }
-    public Date GetCreationDate() { return mCreatedAt; }
-    public String GetDescription() { return mDescription; }
-
-    public Date getmCreatedAt() {
-        return mCreatedAt;
+    public Date GetCreationDate() {
+        return created_at;
     }
 
-    public String getmDescription() {
-        return mDescription;
+    public String GetDescription() {
+        return content;
     }
 
-    public String getmTitle() {
-        return mTitle;
+    public String GetTitle() {
+        return title;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

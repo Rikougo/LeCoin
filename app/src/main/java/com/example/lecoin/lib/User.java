@@ -32,4 +32,8 @@ public class User {
     public int[] getBookmarks() {
         return bookmarks;
     }
+
+    public boolean equals(User other) {
+        return other.name.equals(name);
+    }
 }

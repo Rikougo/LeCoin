@@ -8,25 +8,29 @@ import androidx.fragment.app.FragmentManager;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.example.lecoin.fragment.ListFragment;
 import com.example.lecoin.fragment.LoginFragment;
 import com.example.lecoin.fragment.ProfileFragment;
 import com.example.lecoin.fragment.SearchFragment;
+import com.example.lecoin.lib.Offer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,14 +56,15 @@ public class HomeActivity extends AppCompatActivity {
 
             switch(id) {
                 case R.id.homePage:
-                    System.out.println("Home");
+                    if (mParent.mCurrentTab == ActivityTabs.HOME) break;
                     mParent.SwitchTo(SearchFragment.class, ActivityTabs.HOME);
                     break;
                 case R.id.addPage:
-                    System.out.println("Add");
+                    if (mParent.mCurrentTab == ActivityTabs.SEARCH) break;
                     mParent.SwitchTo(ListFragment.class, ActivityTabs.SEARCH);
                     break;
                 case R.id.accountPage:
+                    if (mParent.mCurrentTab == ActivityTabs.PROFILE) break;
                     if (mParent.GetAuth().getCurrentUser() != null) {
                         mParent.SwitchTo(ProfileFragment.class, ActivityTabs.PROFILE);
                     } else {
@@ -67,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.bookmarkPage:
-                    System.out.println("Bookmark");
+                    if (mParent.mCurrentTab == ActivityTabs.BOOKMARKS) break;
                     break;
             };
 
@@ -85,29 +90,14 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (getActionBar() != null) getActionBar().hide();
-
         setContentView(R.layout.activity_home);
 
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
         mFragmentManager = getSupportFragmentManager();
 
-        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (mCurrentTab == ActivityTabs.PROFILE) {
-                    if (firebaseAuth.getCurrentUser() == null) {
-                        SwitchTo(LoginFragment.class, null);
-                    } else {
-                        SwitchTo(ProfileFragment.class, null);
-                    }
-                }
-            }
-        });
-
-        mAuth.signOut();
+        // debug purpose
+        // mAuth.signOut();
     }
 
     @Override
@@ -118,6 +108,39 @@ public class HomeActivity extends AppCompatActivity {
 
         // Handle navigation here*
         bottomNavigation.setOnItemSelectedListener(new HomeActivity.OnItemSelectedListener(this));
+
+
+        // Track auth state change to handle specific actions on change
+        // may be moved to specific fragment that need this
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                // specific behavior if on profile page
+                if (mCurrentTab == ActivityTabs.PROFILE) {
+                    if (firebaseAuth.getCurrentUser() == null) {
+                        SwitchTo(LoginFragment.class, null);
+                    } else {
+                        SwitchTo(ProfileFragment.class, null);
+                    }
+                }
+
+                if (mAuth.getCurrentUser() != null) bottomNavigation.getMenu().getItem(2).setIcon(R.drawable.account);
+                else bottomNavigation.getMenu().getItem(2).setIcon(R.drawable.login);
+            }
+        });
+
+        RequestAllOfferByTags(new String[] { "cat", "cool"}).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                System.out.println(queryDocumentSnapshots.toObjects(Offer.class).toString());
+            }
+        });
+        RequestAllOfferByTags(new String[] { "cat", "danger"}).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                System.out.println(queryDocumentSnapshots.toObjects(Offer.class).toString());
+            }
+        });
     }
 
     public void LoginUser(String mail, String password) {
@@ -198,12 +221,35 @@ public class HomeActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public Task<DocumentSnapshot> getOffer(String ID){
-        return mDB.collection("Offer").document(ID).get();
+    public FragmentManager GetFragmentManager() { return mFragmentManager; }
+
+    /**
+     * Request an offer with given id.
+     * @param ID The ID of the wanted document
+     * @return Add listener (Complete or Success or Failure) to get result of the task.
+     */
+    public Task<DocumentSnapshot> RequestOffer(String ID){
+        return mDB.collection("Offers").document(ID).get();
     }
 
-    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOffer(){
-        return mDB.collection("Offer").get();
+    /**
+     * Request all offers with no filters
+     * @return Add listener (Complete or Success or Failure) to get result of the task.
+     */
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOffer(){
+        return mDB.collection("Offers").whereEqualTo("active", true).get();
+    }
+
+    /**
+     * Request all offers with tags filters (document must contains one of the tags to be returned)
+     * @param tags collection of tags you want your documents to have
+     * @return Add listener (Complete or Success or Failure) to get result of the task.
+     */
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOfferByTags(String[] tags){
+        Query query = mDB.collection("Offers").whereEqualTo("active", true);
+
+        query = query.whereArrayContainsAny("tags", Arrays.asList(tags));
+        return query.get();
     }
 
     public FirebaseFirestore GetDatabase() { return mDB; }

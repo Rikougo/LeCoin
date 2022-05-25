@@ -20,6 +20,8 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         private final TextView titleView;
         private final TextView creationView;
         private final TextView descView;
+        private final TextView priceView;
+
         public ViewHolder(View v) {
             super(v);
             // Define click listener for the ViewHolder's View.
@@ -30,24 +32,31 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
                 }
             });
 
-            titleView = (TextView) v.findViewById(R.id.offer_title);
+            titleView    = (TextView) v.findViewById(R.id.offer_title);
+            descView     = (TextView) v.findViewById(R.id.offer_description);
+            priceView    = (TextView) v.findViewById(R.id.offer_price);
             creationView = (TextView) v.findViewById(R.id.offer_creation);
-            descView = (TextView) v.findViewById(R.id.offer_description);
         }
 
-        public TextView getTitleView() {
+        public TextView GetTitleView() {
             return titleView;
         }
-        public TextView getCreationView() {
+        public TextView GetCreationView() {
             return creationView;
         }
-        public TextView getDescView() {
+        public TextView GetDescView() {
             return descView;
         }
+        public TextView GetPriceView() { return priceView; }
     }
 
     public OfferAdapter(Offer[] offers) {
         mOfferData = offers;
+    }
+
+    public void setData(Offer[] newData) {
+        mOfferData = newData;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -63,9 +72,10 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Offer offer = mOfferData[position];
-        holder.getTitleView().setText(offer.GetTitle());
-        holder.getCreationView().setText(offer.GetCreationDate().toString());
-        holder.getDescView().setText(offer.GetDescription());
+        holder.GetTitleView().setText(offer.GetTitle());
+        holder.GetCreationView().setText(offer.GetCreationDate().toString());
+        holder.GetDescView().setText(offer.GetDescription());
+        holder.GetPriceView().setText(Integer.toString(offer.price));
     }
 
     @Override

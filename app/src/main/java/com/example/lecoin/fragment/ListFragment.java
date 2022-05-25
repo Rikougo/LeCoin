@@ -7,20 +7,28 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.adapter.FragmentViewHolder;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ScrollView;
+import android.widget.ArrayAdapter;
 import android.widget.SearchView;
+import android.widget.Spinner;
 
 import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
 import com.example.lecoin.adapter.OfferAdapter;
 import com.example.lecoin.lib.Offer;
+import com.example.lecoin.utils.MultiSpinner;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +40,7 @@ public class ListFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private OfferAdapter mAdapter;
+    private ArrayAdapter<String> mSpinnerAdapter;
 
     public ListFragment() { }
 
@@ -45,8 +54,6 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mParent = (HomeActivity) getActivity();
     }
 
     @Override
@@ -55,7 +62,18 @@ public class ListFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
-        ((SearchView)rootView.findViewById(R.id.list_search)).setIconifiedByDefault(false);
+        SearchView searchView = rootView.findViewById(R.id.list_search);
+        searchView.setIconifiedByDefault(false);
+
+        MultiSpinner spinner = ((MultiSpinner)rootView.findViewById(R.id.list_spinner));
+        spinner.setItems(new ArrayList<String>(Collections.singleton("None")), "None", new MultiSpinner.MultiSpinnerListener() {
+            @Override
+            public void onItemsSelected(boolean[] selected) {
+                System.out.println(Arrays.toString(selected));
+            }
+        });
+
+        mParent = (HomeActivity) getActivity();
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.OfferList);
 
@@ -63,13 +81,36 @@ public class ListFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(layoutManager);
 
-        Offer[] data = new Offer[] {
-            new Offer(null, null, null),
-            new Offer(null, null, null),
-            new Offer(null, null, null),
-        };
+        Offer[] data = new Offer[] { };
 
         mAdapter = new OfferAdapter(data);
+
+        // initial request all
+        mParent.RequestAllOffer().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (mAdapter != null) {
+                    List<Offer> offers = queryDocumentSnapshots.toObjects(Offer.class);
+                    HashSet<String> tags = new HashSet<String>();
+
+                    Offer[] offersArray = new Offer[offers.size()];
+
+                    for(int i = 0; i < offers.size(); i++) {
+                        offersArray[i] = offers.get(i);
+
+                        if (offers.get(i).tags != null) tags.addAll(offers.get(i).tags);
+                    }
+                    mAdapter.setData(offersArray);
+
+                    spinner.setItems(new ArrayList<String>(tags), "Select items", new MultiSpinner.MultiSpinnerListener() {
+                        @Override
+                        public void onItemsSelected(boolean[] selected) {
+                            System.out.println(Arrays.toString(selected));
+                        }
+                    });
+                }
+            }
+        });
 
         mRecyclerView.setAdapter(mAdapter);
 

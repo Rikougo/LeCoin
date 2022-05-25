@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lecoin.R;
 import com.example.lecoin.lib.Offer;
 
-public class BookmarkAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> {
+public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHolder> {
     private Offer[] mOfferData;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -34,13 +34,13 @@ public class BookmarkAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolde
             descView = (TextView) v.findViewById(R.id.offer_description);
         }
 
-        public TextView getTitleView() {
+        public TextView GetTitleView() {
             return titleView;
         }
-        public TextView getCreationView() {
+        public TextView GetCreationView() {
             return creationView;
         }
-        public TextView getDescView() {
+        public TextView GetDescView() {
             return descView;
         }
     }
@@ -51,20 +51,20 @@ public class BookmarkAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolde
 
     @NonNull
     @Override
-    public OfferAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BookmarkAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_offer, parent, false);
 
-        return new OfferAdapter.ViewHolder(v);
+        return new BookmarkAdapter.ViewHolder(v);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull OfferAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BookmarkAdapter.ViewHolder holder, int position) {
         Offer offer = mOfferData[position];
-        holder.getTitleView().setText(offer.GetTitle());
-        holder.getCreationView().setText(offer.GetCreationDate().toString());
-        holder.getDescView().setText(offer.GetDescription());
+        holder.GetTitleView().setText(offer.GetTitle());
+        holder.GetCreationView().setText(offer.GetCreationDate().toString());
+        holder.GetDescView().setText(offer.GetDescription());
     }
 
     @Override

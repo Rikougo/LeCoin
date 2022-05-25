@@ -46,6 +46,6 @@
     <string name="user_name">Username</string>
     <string name="user_info_page">Informations</string>
     <string name="user_offers_page">Offers</string>
-    <string name="user_inbox_page">Inbox</string>
+    <string name="user_add_page">Add</string>
 
 </resources>

@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 
 import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
+import com.example.lecoin.fragment.profile.AddFragment;
+import com.example.lecoin.fragment.profile.InformationFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.GeoPoint;
@@ -28,20 +31,13 @@ import java.util.Objects;
 public class ProfileFragment extends Fragment {
     private HomeActivity mParent;
 
+    private TabLayout tabLayout;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegisterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
+    public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -59,6 +55,40 @@ public class ProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         mParent = (HomeActivity) getActivity();
+
+        tabLayout = (TabLayout) rootView.findViewById(R.id.user_tabs);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                System.out.println(tab.getId() + " " + R.id.user_info_tab + " " + R.id.user_add_page);
+
+                String currentTabText = tab.getText().toString();
+                if (currentTabText.equals("Informations")) {
+                    getChildFragmentManager().beginTransaction()
+                            .replace(R.id.user_fragment_view, InformationFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack(null)
+                            .commit();
+                } else if (currentTabText.equals("Add")) {
+                    getChildFragmentManager().beginTransaction()
+                            .replace(R.id.user_fragment_view, AddFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         AppCompatImageButton disconnectButton = rootView.findViewById(R.id.user_disconnect);
 
