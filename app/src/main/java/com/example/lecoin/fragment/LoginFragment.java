@@ -70,21 +70,13 @@ public class LoginFragment extends Fragment {
 
         Button login = getView().findViewById(R.id.signin_login_button);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = ((EditText)getView().findViewById(R.id.signin_input_username)).getText().toString();
-                String password = ((EditText)getView().findViewById(R.id.signin_input_password)).getText().toString();
-                if(!username.equals("") && !password.equals(""))
-                mParent.LoginUser(username, password);
-            }
+        login.setOnClickListener(view1 -> {
+            String username = ((EditText)getView().findViewById(R.id.signin_input_username)).getText().toString();
+            String password = ((EditText)getView().findViewById(R.id.signin_input_password)).getText().toString();
+            if(!username.equals("") && !password.equals(""))
+            mParent.LoginUser(username, password);
         });
 
-        ((Button)getView().findViewById(R.id.signin_register_button)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mParent.SwitchTo(RegisterFragment.class, null);
-            }
-        });
+        ((Button)getView().findViewById(R.id.signin_register_button)).setOnClickListener(view12 -> mParent.SwitchTo(RegisterFragment.class, null));
     }
 }
