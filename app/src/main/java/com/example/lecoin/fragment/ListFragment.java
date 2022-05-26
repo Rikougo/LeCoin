@@ -18,14 +18,10 @@ import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
 import com.example.lecoin.adapter.OfferAdapter;
 import com.example.lecoin.lib.Offer;
-import com.example.lecoin.utils.MultiSpinner;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -74,7 +70,7 @@ public class ListFragment extends Fragment {
 
                 Task<QuerySnapshot> query;
                 if (!s.isEmpty()) {
-                    query = mParent.getAllOfferBySearch(s);
+                    query = mParent.RequestAllOfferBySearch(s);
                 } else {
                     query = mParent.RequestAllOffer();
                 }

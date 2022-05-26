@@ -30,6 +30,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.GeoPoint;
 
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -259,11 +260,6 @@ public class HomeActivity extends AppCompatActivity {
         return query.get();
     }
 
-    //lecture firebase
-    public Task<DocumentSnapshot> getOffer(String ID){
-        return mDB.collection("Offers").document(ID).get();
-    }
-
     public Task<DocumentReference> PostOffer(Offer newOffer) {
         newOffer.created_at = new Date();
         newOffer.active = true;
@@ -273,15 +269,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOfferByUser(String ID){
-        return mDB.collection("Offers").whereEqualTo("author", RequestUserRef(ID)).get();
+        return mDB.collection("Offers").whereEqualTo("author", RequestUserRef(ID)).orderBy("created_at", Query.Direction.DESCENDING).get();
     }
 
-    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferByUser(String ID){
-        return mDB.collection("Offers").whereEqualTo("author", getUserRef(ID)).orderBy("created_at", Query.Direction.DESCENDING).get();
-    }
-
-    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferBySearch(String query){
-        return mDB.collection("Offers").whereGreaterThanOrEqualTo("titleLC", query).whereLessThanOrEqualTo("titleLC", query+'\uf8ff').get();
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOfferBySearch(String query){
+        query = Normalizer.normalize(query.toLowerCase(), Normalizer.Form.NFD);
+        query = query.replaceAll("[^\\p{ASCII}]", "");
+        return mDB.collection("Offers").whereGreaterThanOrEqualTo("query", query).whereLessThanOrEqualTo("query", query+'\uf8ff').get();
     }
 
     public DocumentReference RequestUserRef(String ID){

@@ -48,7 +48,7 @@ public class SelfOfferFragment extends Fragment {
         OfferAdapter adapter = new OfferAdapter(new Offer[]{});
         recyclerView.setAdapter(adapter);
 
-        mParent.getAllOfferByUser(mParent.GetAuth().getUid()).addOnSuccessListener(task -> {
+        mParent.RequestAllOfferByUser(mParent.GetAuth().getUid()).addOnSuccessListener(task -> {
             List<Offer> offers = task.toObjects(Offer.class);
             System.out.println("Loaded everything " + offers.toString());
             Offer[] offersArray = new Offer[offers.size()]; offers.toArray(offersArray);
