@@ -62,4 +62,5 @@
     <string name="offer_creation_title">Create your offer</string>
     <string name="input_content_hint">Cool content about your item.</string>
     <string name="pictures_scroller">pictures scroller</string>
+    <string name="contacter">contacter</string>
 </resources>

@@ -103,7 +103,7 @@ public class AddFragment extends Fragment implements TextWatcher {
 
                 if (offer.price <= 0.0f)
                     priceInput.setError("Price must be over 0$.");
-                
+
                 if (offer.tags.size() <= 0)
                     tagsInput.setError("Please specify at least one tag.");
 
