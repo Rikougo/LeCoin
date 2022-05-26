@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/dark_color"
             android:text="@string/signin"
-            android:textColor="@color/selected_color"
+            android:textColor="@color/white"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Button
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/dark_color"
             android:text="@string/not_yet_signed"
-            android:textColor="@color/selected_color" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

@@ -61,6 +61,12 @@
     <string name="input_tags_hint">Tags separated with ;</string>
     <string name="offer_creation_title">Create your offer</string>
     <string name="input_content_hint">Cool content about your item.</string>
+    <string name="offer_default_date">13/12/2000</string>
+    <string name="offer_default_content">Small description of your product.</string>
+    <string name="offer_default_price">53€</string>
+    <string name="offer_default_title">Cool title</string>
+    <string name="offer_save">Save</string>
+    <string name="offer_open">Open</string>
     <string name="pictures_scroller">pictures scroller</string>
     <string name="contacter">contacter</string>
 </resources>

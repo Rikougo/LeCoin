@@ -10,9 +10,12 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="2dp">
 
         <LinearLayout
+            android:id="@+id/offer_root_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -21,7 +24,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:contentDescription=""
+                android:contentDescription="@string/offer_thumbnail"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/renard" />
 
@@ -32,19 +35,38 @@
                 android:padding="16dp">
 
                 <!-- Title, secondary and supporting text -->
-                <TextView
-                    android:id="@+id/offer_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Okay"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/offer_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/offer_default_title"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/offer_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/offer_default_price"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/offer_creation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="What"
+                    android:text="@string/offer_default_date"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
 
@@ -53,16 +75,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Why not"
+                    android:text="@string/offer_default_content"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
 
-                <TextView
-                    android:id="@+id/offer_price"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/offer_tags"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Price" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp">
+
+                </com.google.android.material.chip.ChipGroup>
 
             </LinearLayout>
 

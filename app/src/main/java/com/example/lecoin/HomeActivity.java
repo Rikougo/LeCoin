@@ -238,7 +238,7 @@ public class HomeActivity extends AppCompatActivity {
      * @return Add listener (Complete or Success or Failure) to get result of the task.
      */
     public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOffer() {
-        return mDB.collection("Offers").whereEqualTo("active", true).get();
+        return mDB.collection("Offers").whereEqualTo("active", true).orderBy("created_at", Query.Direction.DESCENDING).get();
     }
 
     /**
@@ -253,6 +253,17 @@ public class HomeActivity extends AppCompatActivity {
         return query.get();
     }
 
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestLastOffer() {
+        Query query = mDB.collection("Offers").orderBy("created_at", Query.Direction.DESCENDING).limit(1);
+
+        return query.get();
+    }
+
+    //lecture firebase
+    public Task<DocumentSnapshot> getOffer(String ID){
+        return mDB.collection("Offers").document(ID).get();
+    }
+
     public Task<DocumentReference> PostOffer(Offer newOffer) {
         newOffer.created_at = new Date();
         newOffer.active = true;
@@ -265,7 +276,11 @@ public class HomeActivity extends AppCompatActivity {
         return mDB.collection("Offers").whereEqualTo("author", RequestUserRef(ID)).get();
     }
 
-    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOfferBySearch(String query){
+    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferByUser(String ID){
+        return mDB.collection("Offers").whereEqualTo("author", getUserRef(ID)).orderBy("created_at", Query.Direction.DESCENDING).get();
+    }
+
+    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferBySearch(String query){
         return mDB.collection("Offers").whereGreaterThanOrEqualTo("titleLC", query).whereLessThanOrEqualTo("titleLC", query+'\uf8ff').get();
     }
 

@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
-import android.widget.Spinner;
 
 import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
@@ -21,6 +20,7 @@ import com.example.lecoin.adapter.OfferAdapter;
 import com.example.lecoin.lib.Offer;
 import com.example.lecoin.utils.MultiSpinner;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,13 +37,13 @@ import java.util.Set;
 public class ListFragment extends Fragment {
     private HomeActivity mParent;
 
-    private RecyclerView mRecyclerView;
+    private androidx.appcompat.widget.SearchView mSearchView;
     private OfferAdapter mAdapter;
     private ArrayAdapter<String> mSpinnerAdapter;
 
     public ListFragment() { }
 
-    public static ListFragment newInstance(String param1, String param2) {
+    public static ListFragment newInstance() {
         ListFragment fragment = new ListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -62,24 +61,47 @@ public class ListFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
-        SearchView searchView = rootView.findViewById(R.id.list_search);
-        searchView.setIconifiedByDefault(false);
+        mParent = (HomeActivity) getActivity();
 
-        MultiSpinner spinner = ((MultiSpinner)rootView.findViewById(R.id.list_spinner));
-        spinner.setItems(new ArrayList<String>(Collections.singleton("None")), "None", new MultiSpinner.MultiSpinnerListener() {
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.OfferList);
+        SearchView searchView = rootView.findViewById(R.id.list_search);
+
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onItemsSelected(boolean[] selected) {
-                System.out.println(Arrays.toString(selected));
+            public boolean onQueryTextSubmit(String s) {
+                System.out.println("New search : " + s);
+
+                Task<QuerySnapshot> query;
+                if (!s.isEmpty()) {
+                    query = mParent.getAllOfferBySearch(s);
+                } else {
+                    query = mParent.RequestAllOffer();
+                }
+
+                query.addOnSuccessListener(task -> {
+                    List<Offer> offers = task.toObjects(Offer.class);
+                    Offer[] offersArray = new Offer[offers.size()];
+                    offers.toArray(offersArray);
+                    mAdapter.setData(offersArray);
+                });
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (s.isEmpty()) {
+                    this.onQueryTextSubmit(s);
+                }
+
+                return false;
             }
         });
 
-        mParent = (HomeActivity) getActivity();
-
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.OfferList);
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-        mRecyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
 
         Offer[] data = new Offer[] { };
 
@@ -101,18 +123,11 @@ public class ListFragment extends Fragment {
                         if (offers.get(i).tags != null) tags.addAll(offers.get(i).tags);
                     }
                     mAdapter.setData(offersArray);
-
-                    spinner.setItems(new ArrayList<String>(tags), "Select items", new MultiSpinner.MultiSpinnerListener() {
-                        @Override
-                        public void onItemsSelected(boolean[] selected) {
-                            System.out.println(Arrays.toString(selected));
-                        }
-                    });
                 }
             }
         });
 
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
 
         return rootView;
     }

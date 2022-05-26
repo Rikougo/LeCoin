@@ -16,6 +16,7 @@ import com.example.lecoin.HomeActivity;
 import com.example.lecoin.R;
 import com.example.lecoin.fragment.profile.AddFragment;
 import com.example.lecoin.fragment.profile.InformationFragment;
+import com.example.lecoin.fragment.profile.SelfOfferFragment;
 import com.example.lecoin.lib.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
@@ -87,6 +88,12 @@ public class ProfileFragment extends Fragment {
                 } else if (currentTabText.equals("Add")) {
                     getChildFragmentManager().beginTransaction()
                             .replace(R.id.user_fragment_view, AddFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack(null)
+                            .commit();
+                } else if (currentTabText.equals("Offers")) {
+                    getChildFragmentManager().beginTransaction()
+                            .replace(R.id.user_fragment_view, SelfOfferFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack(null)
                             .commit();
