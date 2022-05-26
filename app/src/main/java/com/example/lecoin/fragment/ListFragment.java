@@ -63,7 +63,6 @@ public class ListFragment extends Fragment {
 
         mParent = (HomeActivity) getActivity();
 
-
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.OfferList);
         SearchView searchView = rootView.findViewById(R.id.list_search);
 

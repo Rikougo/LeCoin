@@ -10,9 +10,12 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="2dp">
 
         <LinearLayout
+            android:id="@+id/offer_root_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">

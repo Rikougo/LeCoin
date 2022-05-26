@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/dark_color"
                 android:text="@string/update"
-                android:textColor="@color/selected_color" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

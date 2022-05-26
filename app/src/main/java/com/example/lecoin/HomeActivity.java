@@ -277,7 +277,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferByUser(String ID){
-        return mDB.collection("Offers").whereEqualTo("author", getUserRef(ID)).get();
+        return mDB.collection("Offers").whereEqualTo("author", getUserRef(ID)).orderBy("created_at", Query.Direction.DESCENDING).get();
     }
 
     public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferBySearch(String query){

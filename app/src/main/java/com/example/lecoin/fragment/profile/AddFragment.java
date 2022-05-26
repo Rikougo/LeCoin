@@ -161,6 +161,8 @@ public class AddFragment extends Fragment implements TextWatcher {
         tagsInput.setErrorEnabled(false);
 
         String rawPrice = priceInput.getEditText().getText().toString().replaceAll("[^\\d.]", "");
+        if (!rawPrice.equals(priceInput.getEditText().getText().toString()))
+            priceInput.getEditText().setText(rawPrice);
         String rawTags = tagsInput.getEditText().getText().toString();
 
         tags    = ParseTags(rawTags);

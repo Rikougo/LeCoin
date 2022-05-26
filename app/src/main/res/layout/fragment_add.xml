@@ -25,7 +25,7 @@
                 android:textSize="34sp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -33,13 +33,14 @@
                     android:id="@+id/add_title_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="130dp"
                     android:layout_margin="8dp"
                     android:autofillHints=""
                     android:ems="10"
                     android:inputType="textPersonName"
+                    android:minWidth="130dp"
                     android:minHeight="48dp"
                     android:textColorHint="#757575">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
                     android:gravity="center"
                     android:inputType="numberDecimal"
                     android:minHeight="48dp">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -103,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/dark_color"
                 android:text="@string/send"
-                android:textColor="@color/light_color" />
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 

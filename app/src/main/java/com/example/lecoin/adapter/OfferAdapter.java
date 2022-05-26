@@ -3,6 +3,8 @@ package com.example.lecoin.adapter;
 import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,9 @@ import com.example.lecoin.R;
 import com.example.lecoin.lib.Offer;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
 
@@ -21,6 +26,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     private Offer[] mOfferData;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final LinearLayout rootLayout;
         public final TextView titleView;
         public final TextView creationView;
         public final TextView descView;
@@ -34,6 +40,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
                 System.out.println("Element " + getAdapterPosition() + " clicked.");
             });
 
+            rootLayout   = (LinearLayout) v.findViewById(R.id.offer_root_layout);
             titleView    = (TextView) v.findViewById(R.id.offer_title);
             descView     = (TextView) v.findViewById(R.id.offer_description);
             priceView    = (TextView) v.findViewById(R.id.offer_price);

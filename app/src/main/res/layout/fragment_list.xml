@@ -5,7 +5,6 @@
     android:id="@+id/list_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_color"
     tools:context=".fragment.ListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
