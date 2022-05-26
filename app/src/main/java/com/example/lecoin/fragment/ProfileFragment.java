@@ -3,7 +3,6 @@ package com.example.lecoin.fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
@@ -18,13 +17,9 @@ import com.example.lecoin.R;
 import com.example.lecoin.fragment.profile.AddFragment;
 import com.example.lecoin.fragment.profile.InformationFragment;
 import com.example.lecoin.lib.User;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Objects;
 
@@ -63,7 +58,7 @@ public class ProfileFragment extends Fragment {
 
         usernameView = rootView.findViewById(R.id.user_name);
 
-        mParent.getUser().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        mParent.RequestUser().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);

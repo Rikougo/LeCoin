@@ -253,11 +253,6 @@ public class HomeActivity extends AppCompatActivity {
         return query.get();
     }
 
-    //lecture firebase
-    public Task<DocumentSnapshot> getOffer(String ID){
-        return mDB.collection("Offers").document(ID).get();
-    }
-
     public Task<DocumentReference> PostOffer(Offer newOffer) {
         newOffer.created_at = new Date();
         newOffer.active = true;
@@ -266,23 +261,19 @@ public class HomeActivity extends AppCompatActivity {
         return mDB.collection("Offers").add(newOffer);
     }
 
-    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOffer(){
-        return mDB.collection("Offers").get();
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOfferByUser(String ID){
+        return mDB.collection("Offers").whereEqualTo("author", RequestUserRef(ID)).get();
     }
 
-    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferByUser(String ID){
-        return mDB.collection("Offers").whereEqualTo("author", getUserRef(ID)).get();
-    }
-
-    public Task<com.google.firebase.firestore.QuerySnapshot> getAllOfferBySearch(String query){
+    public Task<com.google.firebase.firestore.QuerySnapshot> RequestAllOfferBySearch(String query){
         return mDB.collection("Offers").whereGreaterThanOrEqualTo("titleLC", query).whereLessThanOrEqualTo("titleLC", query+'\uf8ff').get();
     }
 
-    public DocumentReference getUserRef(String ID){
+    public DocumentReference RequestUserRef(String ID){
         return mDB.collection("User").document(ID);
     }
 
-    public Task<DocumentSnapshot> getUser(){
+    public Task<DocumentSnapshot> RequestUser(){
         return mDB.collection("User").document(Objects.requireNonNull(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())).get();
     }
 
@@ -293,7 +284,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     // --- UPDATE USER INFORMATION --- //
-    public void updateMail(String newMail){
+    public void UpdateMail(String newMail){
         mAuth.getCurrentUser().updateEmail(newMail).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("User email updated.");
@@ -301,7 +292,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    public void updateName(String newName){
+    public void UpdateName(String newName){
         DocumentReference updateUser = mDB.collection("User").document(Objects.requireNonNull(GetAuth().getUid()));
 
         updateUser
@@ -310,7 +301,7 @@ public class HomeActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> System.err.println("Error updating user name"));
     }
 
-    public void updateStatus(boolean status){
+    public void UpdateStatus(boolean status){
         DocumentReference updateUser = mDB.collection("User").document(Objects.requireNonNull(GetAuth().getUid()));
 
         updateUser
@@ -319,7 +310,7 @@ public class HomeActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> System.err.println("Error updating user status"));
     }
 
-    public void updateBookmarks(int bookmark, boolean addRemove) {
+    public void UpdateBookmarks(int bookmark, boolean addRemove) {
         DocumentReference updateUser = mDB.collection("User").document(Objects.requireNonNull(GetAuth().getUid()));
 
         if(addRemove){
@@ -330,7 +321,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    public void updateLocalisation(GeoPoint localisation){
+    public void UpdateLocalisation(GeoPoint localisation){
         DocumentReference updateUser = mDB.collection("User").document(Objects.requireNonNull(GetAuth().getUid()));
 
         updateUser

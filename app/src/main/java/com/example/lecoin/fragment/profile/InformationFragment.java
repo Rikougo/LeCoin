@@ -80,7 +80,7 @@ public class InformationFragment extends Fragment {
         Switch switchStatus = rootView.findViewById(R.id.status);
 
         //set all information in view
-        mParent.getUser().addOnSuccessListener(documentSnapshot -> {
+        mParent.RequestUser().addOnSuccessListener(documentSnapshot -> {
             User user = documentSnapshot.toObject(User.class);
             System.out.println(user);
             mailText.getEditText().setText(mParent.authMail());
@@ -92,21 +92,21 @@ public class InformationFragment extends Fragment {
 
         //update firebase with new info when pressed
         updating.setOnClickListener(view -> {
-            mParent.getUser().addOnSuccessListener(documentSnapshot -> {
+            mParent.RequestUser().addOnSuccessListener(documentSnapshot -> {
                 User user = documentSnapshot.toObject(User.class);
                 if(!nameText.getEditText().getText().toString().equals("") && !nameText.getEditText().getText().toString().equals(user.name)){
-                    mParent.updateName(nameText.getEditText().getText().toString());
+                    mParent.UpdateName(nameText.getEditText().getText().toString());
                 }
                 if(!mailText.getEditText().getText().toString().equals("") && !mailText.getEditText().getText().toString().equals(mParent.authMail())){
-                    mParent.updateMail(mailText.getEditText().getText().toString());
+                    mParent.UpdateMail(mailText.getEditText().getText().toString());
                 }
-                mParent.updateStatus(switchStatus.isChecked());
+                mParent.UpdateStatus(switchStatus.isChecked());
             });
         });
 
 
 
-        mParent.getAllOfferBySearch("chevre").addOnCompleteListener(task -> {
+        mParent.RequestAllOfferBySearch("chevre").addOnCompleteListener(task -> {
             System.out.println("no");
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {

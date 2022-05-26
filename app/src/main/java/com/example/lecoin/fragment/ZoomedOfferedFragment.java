@@ -21,16 +21,16 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ZoomedofferfferFragment#newInstance} factory method to
+ * Use the {@link ZoomedOfferedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ZoomedofferfferFragment extends Fragment {
+public class ZoomedOfferedFragment extends Fragment {
     private HomeActivity mParent;
     private String ID;
 
-    public ZoomedofferfferFragment() {}
-    public static ZoomedofferfferFragment newInstance() {
-        ZoomedofferfferFragment fragment = new ZoomedofferfferFragment();
+    public ZoomedOfferedFragment() {}
+    public static ZoomedOfferedFragment newInstance() {
+        ZoomedOfferedFragment fragment = new ZoomedOfferedFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -64,14 +64,14 @@ public class ZoomedofferfferFragment extends Fragment {
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyyMMdd  HH:mm");
 
 
-        mParent.getOffer(ID).addOnSuccessListener(documentSnapshot -> {
+        mParent.RequestOffer(ID).addOnSuccessListener(documentSnapshot -> {
             Offer offer = documentSnapshot.toObject(Offer.class);
             assert offer != null;
             offerTitle.setText(offer.GetTitle());
             offerPrice.setText(String.valueOf(offer.price));
             offerCreation.setText(df.format(offer.GetCreationDate()));
             offerDescription.setText(offer.GetDescription());
-            mParent.getUserRef(offer.author.getId()).get().addOnSuccessListener(documentSnapshot2 -> {
+            mParent.RequestUserRef(offer.author.getId()).get().addOnSuccessListener(documentSnapshot2 -> {
                 User user = documentSnapshot2.toObject(User.class);
                 contact.set(mParent.authMail());
             });;
